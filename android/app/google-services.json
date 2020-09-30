@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "803646067440",
+    "firebase_url": "https://atletasunidos-146e7.firebaseio.com",
+    "project_id": "atletasunidos-146e7",
+    "storage_bucket": "atletasunidos-146e7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:803646067440:android:13312762b0daccfd872835",
+        "android_client_info": {
+          "package_name": "com.atletas.atletasunidos"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "803646067440-kmu7urqhqh7utela7qhrrrsp6trludgt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.atletas.atletasunidos",
+            "certificate_hash": "011806c80feb58e3f654c8b8840c574bb0f7920b"
+          }
+        },
+        {
+          "client_id": "803646067440-cmskek8fuvmnup7kn8kn8ineqdjqk1kr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCUyWRfhFALurqcculVZRBKUauMEzC6rUw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "803646067440-cmskek8fuvmnup7kn8kn8ineqdjqk1kr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
