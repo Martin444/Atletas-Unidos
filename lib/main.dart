@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
     return BlocProvider(
       bloc: UserBloc(),
       child: GetMaterialApp(
-        title: 'Flutter Demo',
+        title: 'Atletas unidos',
         debugShowCheckedModeBanner: false,
         home: InitPage(),
       ),

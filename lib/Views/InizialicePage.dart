@@ -1,6 +1,8 @@
 import 'package:atletasunidos/Bloc/user_bloc.dart';
 import 'package:atletasunidos/Views/CustomUser/HomePage.dart';
 import 'package:atletasunidos/Views/Signin/SigninScreen.dart';
+import 'package:atletasunidos/Views/userDecide.dart';
+import 'package:atletasunidos/model/user.dart';
 import 'package:flutter/material.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 
@@ -27,7 +29,14 @@ class _InitPageState extends State<InitPage> {
             );
             break;
           case true:
-            return HomePage();
+            var user = Users(
+              uid: snapshot.data.uid,
+              name: snapshot.data.displayName,
+              photoURL: snapshot.data.photoUrl,
+              email: snapshot.data.email,
+              tokenID: ''
+            );
+            return UserDecide(user: user);
           default:
         }
       }
