@@ -40,8 +40,18 @@ class _HomePageState extends State<HomePage> {
                   ),
               ),
               SizedBox(height: 20,),
-
-              ChartData(),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal:10, vertical: 10),
+                height: 300,
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: [
+                    ChartData(titleChar: 'IRK',),
+                    ChartData(titleChar: 'IRR',),
+                    ChartData(titleChar: 'IRC',),
+                  ],
+                ),
+              ),
 
               SizedBox(height: 10,),
 
@@ -50,7 +60,9 @@ class _HomePageState extends State<HomePage> {
                 text: 'Agregar resultados', 
                 onPressed: (){
                     Get.to(AddResult(),
-                      transition: Transition.cupertino
+                      transition: Transition.downToUp,
+                      curve: Interval(0.65, 1.0),
+                      duration: Duration(milliseconds: 900)
                     );
               }),
               

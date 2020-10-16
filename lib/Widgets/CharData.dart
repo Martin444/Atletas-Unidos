@@ -3,6 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ChartData extends StatefulWidget {
+
+  String titleChar;
+
+  ChartData({this.titleChar});
+
   @override
   _ChartDataState createState() => _ChartDataState();
 }
@@ -11,18 +16,38 @@ class _ChartDataState extends State<ChartData> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: Get.width,
-      height: 230,
+      width: Get.width / 1.3,
+      margin: EdgeInsets.only(right:20),
+      height: 50,
       decoration: BoxDecoration(
-        color: Colors.black38,
-        borderRadius: BorderRadius.circular(20)
+        color: Colors.grey[800],
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: <BoxShadow>[
+            BoxShadow(
+                color: Colors.black12,
+                blurRadius: 15.0,
+                offset: Offset(0.0, 7.0)
+            )
+          ]
       ),
-      child: Padding(
-          padding: const EdgeInsets.only(right: 16.0, left: 6.0,),
-          child: LineChart(
-            sampleData1(),
-            swapAnimationDuration: const Duration(milliseconds: 250),
+      child: Column(
+        children: [
+          Text(widget.titleChar,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                color: Colors.white,
+                fontSize: 21,
+                fontWeight: FontWeight.bold
+              ),
           ),
+          Padding(
+              padding: const EdgeInsets.only(right: 5.0, left: 20.0,),
+              child: LineChart(
+                sampleData1(),
+                swapAnimationDuration: const Duration(milliseconds: 250),
+              ),
+          ),
+        ],
       ),
     );
   }
@@ -45,20 +70,20 @@ class _ChartDataState extends State<ChartData> {
       titlesData: FlTitlesData(
         bottomTitles: SideTitles(
           showTitles: true,
-          reservedSize: 32,
+          reservedSize: 62,
           getTextStyles: (value) => const TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,
             fontSize: 16,
           ),
-          margin: 10,
+          margin:20,
           getTitles: (value) {
             switch (value.toInt()) {
-              case 2:
+              case 1:
                 return 'CR93';
-              case 7:
+              case 3:
                 return 'JIOA';
-              case 12:
+              case 5:
                 return 'DEFG';
             }
             return '';
@@ -80,13 +105,13 @@ class _ChartDataState extends State<ChartData> {
                 return '2Kg';
               case 3:
                 return '3Kg';
-              // case 4:
-              //   return '5m';
+              case 4:
+                return '4Kg';
             }
             return '';
           },
-          margin: 8,
-          reservedSize: 30,
+          margin: 18,
+          reservedSize: 7,
         ),
       ),
       borderData: FlBorderData(
@@ -108,8 +133,8 @@ class _ChartDataState extends State<ChartData> {
         ),
       ),
       minX: 0,
-      maxX: 14,
-      maxY: 4,
+      maxX: 6,
+      maxY: 5,
       minY: 0,
       lineBarsData: linesBarData1(),
     );
@@ -121,9 +146,9 @@ List<LineChartBarData> linesBarData1() {
         FlSpot(1, 1),
         // FlSpot(3, 1.5),
         // FlSpot(5, 1.4),
-        FlSpot(7, 3.4),
+        FlSpot(3, 2.4),
         // FlSpot(10, 2),
-        FlSpot(12, 2.2),
+        FlSpot(5, 3.2),
         // FlSpot(13, 1.8),
       ],
       isCurved: true,
