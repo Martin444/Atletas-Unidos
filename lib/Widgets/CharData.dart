@@ -13,12 +13,17 @@ class ChartData extends StatefulWidget {
 }
 
 class _ChartDataState extends State<ChartData> {
+  List<Color> gradientColors = [
+    const Color(0xff23b6e6),
+    const Color(0xff02d39a),
+  ];
+
+  bool showAvg = false;
   @override
   Widget build(BuildContext context) {
     return Container(
       width: Get.width / 1.3,
       margin: EdgeInsets.only(right:20),
-      height: 50,
       decoration: BoxDecoration(
         color: Colors.grey[800],
         borderRadius: BorderRadius.circular(20),
@@ -32,16 +37,20 @@ class _ChartDataState extends State<ChartData> {
       ),
       child: Column(
         children: [
-          Text(widget.titleChar,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                color: Colors.white,
-                fontSize: 21,
-                fontWeight: FontWeight.bold
-              ),
+          Container(
+            margin: EdgeInsets.only(top: 10),
+            child: Text(widget.titleChar,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 21,
+                  fontWeight: FontWeight.bold
+                ),
+            ),
           ),
-          Padding(
-              padding: const EdgeInsets.only(right: 5.0, left: 20.0,),
+          Container(
+            height: 240,
+              padding: const EdgeInsets.only(right: 15.0, left: 30.0,),
               child: LineChart(
                 sampleData1(),
                 swapAnimationDuration: const Duration(milliseconds: 250),
@@ -70,7 +79,7 @@ class _ChartDataState extends State<ChartData> {
       titlesData: FlTitlesData(
         bottomTitles: SideTitles(
           showTitles: true,
-          reservedSize: 62,
+          reservedSize: 82,
           getTextStyles: (value) => const TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,
@@ -110,7 +119,7 @@ class _ChartDataState extends State<ChartData> {
             }
             return '';
           },
-          margin: 18,
+          margin:18,
           reservedSize: 7,
         ),
       ),
@@ -155,7 +164,12 @@ List<LineChartBarData> linesBarData1() {
       colors: [
         const Color(0xff4af699),
       ],
-      barWidth: 8,
+      barWidth: 4,
+      gradientFrom: Offset(0.2, 0.3),
+      gradientTo: Offset(0.2, 0.3),
+      colorStops:[
+        2.9,
+      ],
       isStrokeCapRound: true,
       dotData: FlDotData(
         show: false,
