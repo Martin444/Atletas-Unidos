@@ -1,3 +1,4 @@
+import 'package:atletasunidos/Widgets/const.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -5,8 +6,10 @@ import 'package:get/get.dart';
 class ChartData extends StatefulWidget {
 
   String titleChar;
+  String titleChar2;
+  String titleChar3;
 
-  ChartData({this.titleChar});
+  ChartData({this.titleChar, this.titleChar2, this.titleChar3});
 
   @override
   _ChartDataState createState() => _ChartDataState();
@@ -22,8 +25,8 @@ class _ChartDataState extends State<ChartData> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: Get.width / 1.3,
-      margin: EdgeInsets.only(right:20),
+      padding: EdgeInsets.only(right:20, left: 20),
+      alignment: Alignment.center,
       decoration: BoxDecoration(
         color: Colors.grey[800],
         borderRadius: BorderRadius.circular(20),
@@ -39,17 +42,72 @@ class _ChartDataState extends State<ChartData> {
         children: [
           Container(
             margin: EdgeInsets.only(top: 10),
-            child: Text(widget.titleChar,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 21,
-                  fontWeight: FontWeight.bold
+            child: Row(
+              children: [
+                Container(
+                  height: 30,
+                  width: 60,
+                  decoration: BoxDecoration(
+                    color: redPrimary,
+                    borderRadius: BorderRadius.circular(10)
+                  ),
+                  child: Center(
+                    child: Text(widget.titleChar,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 21,
+                          fontWeight: FontWeight.bold
+                        ),
+                    ),
+                  ),
                 ),
+              
+                SizedBox(width: 10,),
+                Container(
+                  height: 30,
+                  width: 60,
+                  decoration: BoxDecoration(
+                    color: redPrimary,
+                    borderRadius: BorderRadius.circular(10)
+                  ),
+                  child: Center(
+                    child: Text(widget.titleChar2,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 21,
+                          fontWeight: FontWeight.bold
+                        ),
+                    ),
+                  ),
+                ),
+                SizedBox(width: 10,),
+              
+                Container(
+                  height: 30,
+                  width: 60,
+                  decoration: BoxDecoration(
+                    color: redPrimary,
+                    borderRadius: BorderRadius.circular(10)
+                  ),
+                  child: Center(
+                    child: Text(widget.titleChar3,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 21,
+                          fontWeight: FontWeight.bold
+                        ),
+                    ),
+                  ),
+                ),
+              
+              ],
             ),
           ),
           Container(
-            height: 240,
+              width: Get.height / 1.3,
               padding: const EdgeInsets.only(right: 15.0, left: 30.0,),
               child: LineChart(
                 sampleData1(),
@@ -78,24 +136,37 @@ class _ChartDataState extends State<ChartData> {
 
       titlesData: FlTitlesData(
         bottomTitles: SideTitles(
+          interval: 2,
           showTitles: true,
-          reservedSize: 82,
+          reservedSize: 2,
           getTextStyles: (value) => const TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,
             fontSize: 16,
           ),
-          margin:20,
+          margin:10,
           getTitles: (value) {
             switch (value.toInt()) {
-              case 1:
-                return 'CR93';
-              case 3:
+              case 0:
+                return 'CF11';
+              case 2:
                 return 'JIOA';
-              case 5:
+              case 4:
+                return 'DEFG';
+              case 6:
+                return 'DEFG';
+              case 8:
+                return 'DEFG';
+              case 10:
+                return 'DEFG';
+              case 12:
+                return 'DEFG';
+              case 14:
+                return 'DEFG';
+              case 16:
                 return 'DEFG';
             }
-            return '';
+            return '2';
           },
         ),
         leftTitles: SideTitles(
@@ -109,18 +180,18 @@ class _ChartDataState extends State<ChartData> {
           getTitles: (value) {
             switch (value.toInt()) {
               case 1:
-                return '1Kg';
+                return '1';
               case 2:
-                return '2Kg';
+                return '2';
               case 3:
-                return '3Kg';
+                return '3';
               case 4:
-                return '4Kg';
+                return '4';
             }
             return '';
           },
-          margin:18,
-          reservedSize: 7,
+          margin:8,
+          reservedSize: 0,
         ),
       ),
       borderData: FlBorderData(
@@ -142,7 +213,7 @@ class _ChartDataState extends State<ChartData> {
         ),
       ),
       minX: 0,
-      maxX: 6,
+      maxX: 16,
       maxY: 5,
       minY: 0,
       lineBarsData: linesBarData1(),
@@ -152,19 +223,21 @@ class _ChartDataState extends State<ChartData> {
 List<LineChartBarData> linesBarData1() {
     final LineChartBarData lineChartBarData1 = LineChartBarData(
       spots: [
-        FlSpot(1, 1),
-        // FlSpot(3, 1.5),
-        // FlSpot(5, 1.4),
-        FlSpot(3, 2.4),
-        // FlSpot(10, 2),
-        FlSpot(5, 3.2),
-        // FlSpot(13, 1.8),
+        FlSpot(0, 1),
+        FlSpot(2, 1.5),
+        FlSpot(4, 1.4),
+        FlSpot(6, 2.4),
+        FlSpot(8, 2),
+        FlSpot(10, 3.2),
+        FlSpot(12, 1.8),
+        FlSpot(14, 1.8),
+        FlSpot(16, 1.8),
       ],
       isCurved: true,
       colors: [
         const Color(0xff4af699),
       ],
-      barWidth: 4,
+      barWidth: 2,
       gradientFrom: Offset(0.2, 0.3),
       gradientTo: Offset(0.2, 0.3),
       colorStops:[
