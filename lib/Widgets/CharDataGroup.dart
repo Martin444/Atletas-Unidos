@@ -4,7 +4,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class ChartData extends StatefulWidget {
+class ChartDataGroup extends StatefulWidget {
 
   String titleChar;
   String titleChar2;
@@ -13,13 +13,13 @@ class ChartData extends StatefulWidget {
   int selecIRB = 1;
   int boton;
 
-  ChartData({this.titleChar, this.titleChar2, this.titleChar3});
+  ChartDataGroup({this.titleChar, this.titleChar2, this.titleChar3});
 
   @override
-  _ChartDataState createState() => _ChartDataState();
+  _ChartDataGroupState createState() => _ChartDataGroupState();
 }
 
-class _ChartDataState extends State<ChartData> {
+class _ChartDataGroupState extends State<ChartDataGroup> {
   List<Color> gradientColors = [
     const Color(0xff23b6e6),
     const Color(0xff02d39a),
@@ -205,13 +205,13 @@ class _ChartDataState extends State<ChartData> {
 List<LineChartBarData> linesBarData1() {
     final LineChartBarData lineChartBarData1 = LineChartBarData(
       spots: [
-        FlSpot(0, 1),
-        FlSpot(2, 1.5),
-        FlSpot(4, 1.4),
-        FlSpot(6, 2.4),
-        FlSpot(8, 2),
+        FlSpot(0, 3),
+        FlSpot(2, 3.5),
+        FlSpot(4, 2.4),
+        FlSpot(6, 3.4),
+        FlSpot(8, 4),
         FlSpot(10, 3.2),
-        FlSpot(12, 1.8),
+        FlSpot(12, 2.8),
         FlSpot(14, 1.8),
         FlSpot(16, 1.8),
       ],

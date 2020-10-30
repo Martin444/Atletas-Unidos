@@ -22,6 +22,7 @@ class TextInputLocation extends StatelessWidget {
       child: TextField(
         keyboardType: tipoTeclado,
         controller: controller,
+        textCapitalization: TextCapitalization.characters,
         style: TextStyle(
             fontSize: 19.0,
             fontFamily: "Lato",

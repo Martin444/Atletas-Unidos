@@ -1,12 +1,13 @@
 import 'package:atletasunidos/Views/CustomUser/AddResults.dart';
 import 'package:atletasunidos/Widgets/ButtonSelector.dart';
 import 'package:atletasunidos/Widgets/CharData.dart';
+import 'package:atletasunidos/Widgets/CharDataGroup.dart';
 import 'package:atletasunidos/Widgets/const.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class DataPage extends StatefulWidget {
-  bool selectOne = false;
+  bool selectOne = true;
   @override
   _DataPageState createState() => _DataPageState();
 }
@@ -18,17 +19,20 @@ class _DataPageState extends State<DataPage> {
     return Scaffold(
       backgroundColor: blackPrimary,
       body: Container(
-        child: SingleChildScrollView(
+        child: Container(
+          height: Get.height,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SizedBox(
                 height: 30,
               ),
               Container(
                 padding: EdgeInsets.all(10),
+                alignment: Alignment.center,
                 child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     RotatedBox(
                         quarterTurns: 3,
@@ -74,13 +78,25 @@ class _DataPageState extends State<DataPage> {
                   ],
                 ),
               ),
-              RotatedBox(
-                  quarterTurns: 3,
-                  child: ChartData(
-                    titleChar: 'IRG',
-                    titleChar2: 'IRK',
-                    titleChar3: 'IRR',
-                  ))
+
+              widget.selectOne?
+
+                RotatedBox(
+                    quarterTurns: 3,
+                    child: ChartData(
+                      titleChar: 'IRG',
+                      titleChar2: 'IRK',
+                      titleChar3: 'IRR',
+                    ))
+              :
+                RotatedBox(
+                    quarterTurns: 3,
+                    child: ChartDataGroup(
+                      titleChar: 'IRG',
+                      titleChar2: 'IRK',
+                      titleChar3: 'IRR',
+                    ))
+
             ],
           ),
         ),
