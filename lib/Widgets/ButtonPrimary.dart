@@ -24,7 +24,7 @@ class _ButtonPrimaryState extends State<ButtonPrimary> {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10.0),
             gradient: LinearGradient(
-                colors: [
+                colors:[
                   redPrimary,//arriba
                   redPrimary//abajo
                 ],

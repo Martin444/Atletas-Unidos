@@ -1,8 +1,10 @@
+import 'package:atletasunidos/Controllers/Homecontroller.dart';
 import 'package:atletasunidos/Views/CustomUser/HomePage.dart';
 import 'package:atletasunidos/Widgets/const.dart';
 import 'package:atletasunidos/model/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class UserDecide extends StatefulWidget {
   Users user; 
@@ -15,6 +17,9 @@ class UserDecide extends StatefulWidget {
 class _UserDecideState extends State<UserDecide> {
   @override
   Widget build(BuildContext context) {
+
+    var update = Get.find<HomeControllers>();
+
     return StreamBuilder(
       stream: FirebaseFirestore.instance.collection('users').where('uid', isEqualTo: widget.user.uid).snapshots(),
       builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -34,6 +39,8 @@ class _UserDecideState extends State<UserDecide> {
                     tokenID: e.data()['tokenID']
                     );
            });
+
+           update.updateUsere(widget.user);
 
            switch (widget.user.doctor) {
              case 1:

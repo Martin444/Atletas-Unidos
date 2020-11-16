@@ -8,7 +8,9 @@ class CounterColumn extends StatefulWidget {
   String title;
   int index;
   int counter = 0;
-  CounterColumn({this.title, this.index});
+  VoidCallback onAdd;
+  VoidCallback onRemove;
+  CounterColumn({this.title, this.index, this.counter, this.onAdd, this.onRemove});
   @override
   _CounterColumnState createState() => _CounterColumnState();
 }
@@ -42,14 +44,8 @@ class _CounterColumnState extends State<CounterColumn> {
                   children: [
                     //Remove button
                     GestureDetector(
-                      onTap: (){
-                        widget.counter > 0 ?
-                        setState(() {
-                          widget.counter = widget.counter -1;
-                        })
-                        :
-                        print('hola');
-                      },
+                      onTap: widget.onRemove,
+                      onLongPress: widget.onRemove,
                       child: Container(
                         height: 40,
                         width: 40,
@@ -83,15 +79,8 @@ class _CounterColumnState extends State<CounterColumn> {
                     ),
                     // Add button
                     GestureDetector(
-                      onTap: (){
-                        setState(() {
-                          widget.counter = widget.counter +1;
-                          _.updateCounter(Counters(
-                            id: widget.index,
-                            value: widget.counter
-                          ));
-                        });
-                      },
+                      onTap: widget.onAdd,
+                      onLongPress: widget.onAdd,
                       child: Container(
                         height: 40,
                         width: 40,

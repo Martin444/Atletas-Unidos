@@ -1,30 +1,15 @@
-import 'dart:core';
-
-import 'package:atletasunidos/Views/CustomUser/AddHitBResult.dart';
 import 'package:atletasunidos/Widgets/ButtonPrimary.dart';
-import 'package:atletasunidos/Widgets/const.dart';
 import 'package:atletasunidos/Widgets/counterColumn.dart';
-import 'package:atletasunidos/model/count.dart';
 import 'package:atletasunidos/model/user.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class HomeControllers extends GetxController {
-
-  Users _usere;
-  Users get usere => _usere;
-
+class HitBController extends GetxController{
   int _count1 = 1;
   int _count2 = 1;
   int get count1 => _count1;
   int get count2 => _count2;
-
-  void updateUsere(Users use){
-    _usere = use;
-
-    update();
-  }
 
   // Mapas
   Map<int, dynamic> valorCount1 = new Map<int, dynamic>();
@@ -45,12 +30,14 @@ class HomeControllers extends GetxController {
   int get kg => _kg;
 
   // Estos datos usaremos para tabular los indices generales
-  double _irkOne = 0.0;
-  double get irkOne => _irkOne;
-  double _irrOne = 0.0;
-  double get irrOne=> _irrOne;
-  double _irgOne = 0.0;
-  double get irgOne => _irgOne;
+  double _irkTwo = 0.0;
+  double get irkTwo => _irkTwo;
+  double _irrTwo = 0.0;
+  double get irrTwo=> _irrTwo;
+  double _irgTwo = 0.0;
+  double get irgOne => _irgTwo;
+
+
 
   // Solucion temporal
   // Voy a crear una variable con su respectivo numero
@@ -757,7 +744,7 @@ class HomeControllers extends GetxController {
     update();
   }
 
-  void calculateIterations() {
+  void calculateIterations(double irkOne, double irrOne, double irgOne, Users userInfo) {
     // Primero buscamos el tiempo total
     var minutC = _minute * 60;
     var timeCom = minutC + _seconds;
@@ -902,26 +889,52 @@ class HomeControllers extends GetxController {
 
     print('El IRG es de $irg1');
 
-    buttonSheetIndices(irk1, irr1, irg1);
+    // Calculamos los indices generales
+
+      var irkG = irk1 + irkOne;
+      var irrG = irr1 + irrOne;
+      var irgG = irg1 + irgOne;
+
+    buttonSheetIndices(
+      irk:irk1, 
+      irr:irr1, 
+      irg:irg1,
+      irkG: irkG,
+      irrG: irrG,
+      irgG: irgG,
+      irkA: irkOne,
+      irrA: irrOne,
+      irgA: irgOne,
+      userData: userInfo
+      );
 
   }
 
 
-  // Abrir el buttombarshee una vez cargados los datos
-
-  void buttonSheetIndices(double irk, double irr, double irg){
+    void buttonSheetIndices({
+      double irk, 
+      double irr, 
+      double irg,
+      double irkG,
+      double irrG,
+      double irgG,
+      double irkA,
+      double irrA,
+      double irgA,
+      Users userData
+      }){
 
     Get.dialog(
       Dialog(
         child: Container(
-          height: 200,
+          height: 400,
           padding: EdgeInsets.symmetric(vertical: 10,horizontal: 20),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20)
           ),
           child: Column(
             children: [
-              Text('Tus indices en el HIT A',
+              Text('Tus indices en el HIT B',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 18
@@ -995,13 +1008,89 @@ class HomeControllers extends GetxController {
 
                 ],
               ),
+              
+              SizedBox(height: 10,),
+              Text('Tus indices Generales',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18
+                ),
+              ),
+
+              Divider(
+                thickness: 1.0,
+                color: Colors.black45,
+              ),
+              SizedBox(height: 10,),
+              SizedBox(height: 10,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('IRK',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18
+                    ),
+                  ),
+
+                  Text('${irkG.toStringAsFixed(1)}',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18
+                    ),
+                  ),
+
+                ],
+              ),
             
               SizedBox(height: 10,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('IRR',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18
+                    ),
+                  ),
+
+                  Text('${irrG.toStringAsFixed(1)}',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18
+                    ),
+                  ),
+
+                ],
+              ),
+            
+              SizedBox(height: 10,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('IRG',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18
+                    ),
+                  ),
+
+                  Text('${irgG.toStringAsFixed(1)}',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18
+                    ),
+                  ),
+
+                ],
+              ),
+              
+              SizedBox(height: 20,),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  GestureDetector(
+                   GestureDetector(
                     onTap: (){
                       Get.back();
                     },
@@ -1023,15 +1112,32 @@ class HomeControllers extends GetxController {
                     width: 90,
                     text: 'Guardar',
                     onPressed: (){
-                      _irkOne = irk;
-                      _irrOne = irr;
-                      _irgOne = irg;
-                      update();
 
-                      Get.back();
-                      Get.back();
-                      Get.to(AddHitBResult());
+                      _irkTwo = irk;
+                      _irrTwo = irr;
+                      _irgTwo = irg;
 
+                    
+
+                      FirebaseFirestore.instance.collection('tabulate').add({
+                        'userID': userData.uid,
+                        'sesionName' : _session.text,
+                        'IRKA' : irkA,
+                        'IRRA' : irrA,
+                        'IRGA' : irgA,
+                        'IRKB' : irk,
+                        'IRRB' : irr,
+                        'IRGB' : irg,
+                        'IRKG' : irkG,
+                        'IRRG' : irrG,
+                        'IRGG' : irgG,
+                        'date' : DateTime.now(),
+                      }).then((value) => {
+                        Get.back(),
+                        Get.back()
+                      });
+                     
+                      
                     })
                 ],
               )
@@ -1071,15 +1177,7 @@ class HomeControllers extends GetxController {
     return textField1;
   }
 
-  void updateCounter(Counters conters) {
-    List<Counters> listact = List<Counters>();
-
-    listact.add(conters);
-    listact.forEach((element) {
-      print('Hay ${listact.length} siendo comparados');
-      print('el indes ${element.id} es ${element.value}');
-    });
-  }
+ 
 
   // Funcion que agrega nuevas filas
   updateList1() {
@@ -1143,30 +1241,4 @@ class HomeControllers extends GetxController {
   }
 
 
-  loading() {
-    Get.dialog(Dialog(
-      child: Container(
-        height: 100,
-        child: Center(
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              CircularProgressIndicator(
-                valueColor: new AlwaysStoppedAnimation<Color>(redPrimary),
-              ),
-              SizedBox(width: 30),
-              Text(
-                'Cargando...',
-                style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 21),
-              )
-            ],
-          ),
-        ),
-      ),
-    ));
-  }
 }

@@ -1,3 +1,4 @@
+import 'package:atletasunidos/Controllers/HitBController.dart';
 import 'package:atletasunidos/Controllers/Homecontroller.dart';
 import 'package:atletasunidos/Widgets/ButtonPrimary.dart';
 import 'package:atletasunidos/Widgets/const.dart';
@@ -8,24 +9,19 @@ import 'package:atletasunidos/Widgets/text_input_location.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class AddResult extends StatefulWidget {
-
-
-
-
+class AddHitBResult extends StatefulWidget {
   @override
-  _AddResultState createState() => _AddResultState();
+  _AddHitBResultState createState() => _AddHitBResultState();
 }
 
-class _AddResultState extends State<AddResult> {
-  
+class _AddHitBResultState extends State<AddHitBResult> {
 
+  var tabuler = Get.find<HomeControllers>();
 
   @override
   Widget build(BuildContext context) {
-
-    return GetBuilder<HomeControllers>(
-      init: HomeControllers(),
+    return GetBuilder<HitBController>(
+      init: HitBController(),
       builder: (_) {
         return Scaffold(
           backgroundColor: blackPrimary,
@@ -35,7 +31,7 @@ class _AddResultState extends State<AddResult> {
                 child: Column(
                   children: [
                     SizedBox(height: 60,),
-                    Text('Agrega resultados HIT A',
+                    Text('Agrega resultados HIT B',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           color: Colors.white,
@@ -822,7 +818,10 @@ class _AddResultState extends State<AddResult> {
                       height: 40,
                       text: 'Confirmar',
                       onPressed: (){
-                        _.calculateIterations();
+                        _.session.text.length >= 3?
+                        _.calculateIterations(tabuler.irkOne, tabuler.irrOne, tabuler.irgOne, tabuler.usere)
+                        :
+                        Get.snackbar('Nombre de Session', 'Por favor coloca un nombre a la session',colorText: Colors.white);
                       }
                     ),
                     SizedBox(height: 20,),
@@ -833,7 +832,6 @@ class _AddResultState extends State<AddResult> {
         );
       }
     );
-  
   
   }
 }

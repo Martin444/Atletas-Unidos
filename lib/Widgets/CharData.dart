@@ -1,5 +1,7 @@
+import 'package:atletasunidos/Controllers/Homecontroller.dart';
 import 'package:atletasunidos/Widgets/ButtonIRB.dart';
 import 'package:atletasunidos/Widgets/const.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -28,178 +30,221 @@ class _ChartDataState extends State<ChartData> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: Get.height / 1.3,
-      padding: EdgeInsets.only(right:20, left: 20),
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-        color: Colors.grey[800],
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: <BoxShadow>[
-            BoxShadow(
-                color: Colors.black12,
-                blurRadius: 15.0,
-                offset: Offset(0.0, 7.0)
-            )
-          ]
-      ),
-      child: Column(
-        children: [
-          Container(
-            alignment: Alignment.center,
-            margin: EdgeInsets.only(top: 10),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                // Botones top
-                
-                ButtonIRB(
-                  title:widget.titleChar,
-                  color: widget.selecIRB == 1 ? redPrimary : blackPrimary,
-                  onPres: (){
-                    setState(() {
-                      widget.selecIRB = 1;
-                    });
-                  },
-                ),
-                SizedBox(width: 10,),
-                ButtonIRB(
-                  title:widget.titleChar2,
-                  color: widget.selecIRB == 2 ? redPrimary : blackPrimary,
-                  onPres: (){
-                    setState(() {
-                      widget.selecIRB = 2;
-                    });
-                  },
-                ),
-                SizedBox(width: 10,),
-                ButtonIRB(
-                  title:widget.titleChar3,
-                  color: widget.selecIRB == 3 ? redPrimary : blackPrimary,
-                  onPres: (){
-                    setState(() {
-                      widget.selecIRB = 3;
-                    });
-                  },
-                ),
 
+    List<String> sessions = List<String>();
+
+    var compareID = Get.find<HomeControllers>();
+
+    return StreamBuilder(
+      stream: FirebaseFirestore.instance.collection('tabulate').where('userID', isEqualTo: compareID.usere.uid).snapshots(),
+      builder: (context, snapshot) {
+        
+        var resulter = snapshot.data;
+
+        resulter.documents.forEach((f){
+
+          sessions.add(f['sesionName']);
+
+        });
+
+        if(snapshot.hasData){
+
+          return Container(
+            width: Get.height / 1.3,
+            padding: EdgeInsets.only(right:20, left: 20),
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              color: Colors.grey[800],
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: <BoxShadow>[
+                  BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 15.0,
+                      offset: Offset(0.0, 7.0)
+                  )
+                ]
+            ),
+            child: Column(
+              children: [
+                Container(
+                  alignment: Alignment.center,
+                  margin: EdgeInsets.only(top: 10),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      // Botones top
+                      
+                      ButtonIRB(
+                        title:widget.titleChar,
+                        color: widget.selecIRB == 1 ? redPrimary : blackPrimary,
+                        onPres: (){
+                          setState(() {
+                            widget.selecIRB = 1;
+                          });
+                        },
+                      ),
+                      SizedBox(width: 10,),
+                      ButtonIRB(
+                        title:widget.titleChar2,
+                        color: widget.selecIRB == 2 ? redPrimary : blackPrimary,
+                        onPres: (){
+                          setState(() {
+                            widget.selecIRB = 2;
+                          });
+                        },
+                      ),
+                      SizedBox(width: 10,),
+                      ButtonIRB(
+                        title:widget.titleChar3,
+                        color: widget.selecIRB == 3 ? redPrimary : blackPrimary,
+                        onPres: (){
+                          setState(() {
+                            widget.selecIRB = 3;
+                          });
+                        },
+                      ),
+
+                    
+                    ],
+                  ),
+                ),
               
+                Container(
+                    width: Get.height / 1.3,
+                    padding: const EdgeInsets.only(right: 15.0, left: 30.0,),
+                    child: LineChart(
+                      sampleData1(sessions),
+                      swapAnimationDuration: const Duration(milliseconds: 250),
+                    ),
+                ),
               ],
             ),
-          ),
-          Container(
-              width: Get.height / 1.3,
-              padding: const EdgeInsets.only(right: 15.0, left: 30.0,),
-              child: LineChart(
-                sampleData1(),
-                swapAnimationDuration: const Duration(milliseconds: 250),
-              ),
-          ),
-        ],
-      ),
+          );
+        
+        } else {
+          return Container(
+            child: Center(
+              child: Text('Hola no hay datos aun'),
+            ),
+          );
+        }
+
+      }
     );
   }
 }
           
-  LineChartData sampleData1() {
-    return LineChartData(
-      lineTouchData: LineTouchData(
-        touchTooltipData: LineTouchTooltipData(
-          tooltipBgColor: Colors.blueGrey.withOpacity(0.8),
-        ),
-        touchCallback: (LineTouchResponse touchResponse) {},
-        handleBuiltInTouches: true,
-      ),
+  LineChartData sampleData1(List<String> sessions) {
 
-      gridData: FlGridData(
-        show: true,
-      ),
+    print(sessions[1]);
 
-      titlesData: FlTitlesData(
-        bottomTitles: SideTitles(
-          interval: 2,
-          showTitles: true,
-          reservedSize: 2,
-          getTextStyles: (value) => const TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-            fontSize: 16,
-          ),
-          margin:10,
-          getTitles: (value) {
-            switch (value.toInt()) {
-              case 0:
-                return 'CF11';
-              case 2:
-                return 'JIOA';
-              case 4:
-                return 'DEFG';
-              case 6:
-                return 'DEFG';
-              case 8:
-                return 'DEFG';
-              case 10:
-                return 'DEFG';
-              case 12:
-                return 'DEFG';
-              case 14:
-                return 'DEFG';
-              case 16:
-                return 'DEFG';
-            }
-            return '2';
-          },
-        ),
-        leftTitles: SideTitles(
-          showTitles: true,
-          getTextStyles: (value) => const TextStyle(
-            color: Color(0xff75729e),
-            fontWeight: FontWeight.bold,
-            fontSize: 14,
-          ),
+       
+          return LineChartData(
+            lineTouchData: LineTouchData(
+              touchTooltipData: LineTouchTooltipData(
+                tooltipBgColor: Colors.blueGrey.withOpacity(0.8),
+              ),
+              touchCallback: (LineTouchResponse touchResponse) {},
+              handleBuiltInTouches: true,
+            ),
 
-          getTitles: (value) {
-            switch (value.toInt()) {
-              case 1:
-                return '1';
-              case 2:
-                return '2';
-              case 3:
-                return '3';
-              case 4:
-                return '4';
-            }
-            return '';
-          },
-          margin:8,
-          reservedSize: 0,
-        ),
-      ),
-      borderData: FlBorderData(
-        show: true,
-        border: const Border(
-          bottom: BorderSide(
-            color: Colors.white,
-            width: 2,
-          ),
-          left: BorderSide(
-            color: Colors.transparent,
-          ),
-          right: BorderSide(
-            color: Colors.transparent,
-          ),
-          top: BorderSide(
-            color: Colors.transparent,
-          ),
-        ),
-      ),
-      minX: 0,
-      maxX: 16,
-      maxY: 5,
-      minY: 0,
-      lineBarsData: linesBarData1(),
-    );
+            gridData: FlGridData(
+              show: true,
+              drawVerticalLine: true,
+            ),
+
+            titlesData: 
+              
+              FlTitlesData(
+                bottomTitles: SideTitles(
+                  interval: 2,
+                  showTitles: true,
+                  reservedSize: -5,
+                  getTextStyles: (value) => const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+                  margin:10,
+                  
+                    getTitles: (value){
+                      var number = value.toInt();
+
+                      var compare = number % 2;
+
+                      switch (compare) {
+                        case 0:
+                          return sessions[value.toInt() ];
+                          break;
+                        default:
+                      }
+                          return 'h';    
+                    },
+                  
+                ),
+                leftTitles: SideTitles(
+                  showTitles: true,
+                  getTextStyles: (value) => const TextStyle(
+                    color: Color(0xff75729e),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
+                  ),
+
+                  getTitles: (value) {
+                    switch (value.toInt()) {
+                      case 1:
+                        return '1';
+                      case 2:
+                        return '2';
+                      case 3:
+                        return '3';
+                      case 4:
+                        return '4';
+                      case 5:
+                        return '5';
+                    }
+                    return '';
+                  },
+                  margin:8,
+                  reservedSize: 0,
+                ),
+              ),
+              
+          
+            
+            
+            borderData: FlBorderData(
+              show: true,
+              border: const Border(
+                bottom: BorderSide(
+                  color: Colors.white,
+                  width: 2,
+                ),
+                left: BorderSide(
+                  color: Colors.transparent,
+                ),
+                right: BorderSide(
+                  color: Colors.transparent,
+                ),
+                top: BorderSide(
+                  color: Colors.transparent,
+                ),
+              ),
+            ),
+            minX: 0,
+            maxX: sessions.length.toDouble() ,
+            maxY: 6,
+            minY: 0,
+            lineBarsData: linesBarData1(),
+          );
+
+   
+
+
+  
+
+
 }
 
 List<LineChartBarData> linesBarData1() {
