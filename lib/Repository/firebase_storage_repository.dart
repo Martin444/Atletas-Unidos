@@ -1,10 +1,10 @@
 import 'dart:io';
-import 'package:firebase_storage/firebase_storage.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firease_storage;
 import 'firebase_storage_api.dart';
 
-class FirebaseStorageRepository {
-  final _firebaseStorageAPI = FirebaseStorageAPI();
+// class FirebaseStorageRepository {
+//   final _firebaseStorageAPI = FirebaseStorageAPI();
 
-  // Future<StorageUploadTask> uploadFile(String path, File image) => _firebaseStorageAPI.uploadFile(path, image);
+//   firease_storage.UploadTask uploadFile(String path, File image) => _firebaseStorageAPI.uploadFile(path, image);
 
-}
+// }

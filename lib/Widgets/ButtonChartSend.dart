@@ -15,6 +15,7 @@ class ButtonSendData extends StatelessWidget {
       },
       child: Container(
         height: 50,
+        padding: EdgeInsets.symmetric(horizontal: 10),
         decoration: BoxDecoration(
           color: redPrimary,
           borderRadius: BorderRadius.circular(10),
@@ -27,11 +28,11 @@ class ButtonSendData extends StatelessWidget {
             ]
         ),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-              child: Text('Ver ultimos resultados',
+              child: Text('Ver Graficos',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     color: Colors.white,

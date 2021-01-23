@@ -3,13 +3,16 @@ import 'package:atletasunidos/Widgets/ButtonPrimary.dart';
 import 'package:atletasunidos/Widgets/const.dart';
 import 'package:atletasunidos/Widgets/counterColumn.dart';
 import 'package:atletasunidos/Widgets/counterInput.dart';
+import 'package:atletasunidos/Widgets/counterKg.dart';
 import 'package:atletasunidos/Widgets/text_input.dart';
 import 'package:atletasunidos/Widgets/text_input_location.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class AddResult extends StatefulWidget {
+  int typeInde;
 
+  AddResult({this.typeInde});
 
 
 
@@ -123,7 +126,7 @@ class _AddResultState extends State<AddResult> {
                                     ),
 
 
-                                    CounterColumn(
+                                    CounterKg(
                                       title: 'Kg',
                                       counter: _.kg1,
                                       onAdd: (){
@@ -155,7 +158,7 @@ class _AddResultState extends State<AddResult> {
                                         _.onRemoveCounter2();
                                       },
                                     ),
-                                    CounterColumn(
+                                    CounterKg(
                                       title: 'Kg',
                                       counter: _.kg2,
                                       onAdd: (){
@@ -189,7 +192,7 @@ class _AddResultState extends State<AddResult> {
                                         _.onRemoveCounter3();
                                       },
                                     ),
-                                    CounterColumn(
+                                    CounterKg(
                                       title: 'Kg',
                                       counter: _.kg3,
                                       onAdd: (){
@@ -221,7 +224,7 @@ class _AddResultState extends State<AddResult> {
                                         _.onRemoveCounter4();
                                       },
                                     ),
-                                    CounterColumn(
+                                    CounterKg(
                                       title: 'Kg',
                                       counter: _.kg4,
                                       onAdd: (){
@@ -255,7 +258,7 @@ class _AddResultState extends State<AddResult> {
                                         _.onRemoveCounter5();
                                       },
                                     ),
-                                    CounterColumn(
+                                    CounterKg(
                                       title: 'Kg',
                                       counter: _.kg5,
                                       onAdd: (){
@@ -287,7 +290,7 @@ class _AddResultState extends State<AddResult> {
                                         _.onRemoveCounter6();
                                       },
                                     ),
-                                    CounterColumn(
+                                    CounterKg(
                                       title: 'Kg',
                                       counter: _.kg6,
                                       onAdd: (){
@@ -319,7 +322,7 @@ class _AddResultState extends State<AddResult> {
                                         _.onRemoveCounter7();
                                       },
                                     ),
-                                    CounterColumn(
+                                    CounterKg(
                                       title: 'Kg',
                                       counter: _.kg7,
                                       onAdd: (){
@@ -351,7 +354,7 @@ class _AddResultState extends State<AddResult> {
                                         _.onRemoveCounter8();
                                       },
                                     ),
-                                    CounterColumn(
+                                    CounterKg(
                                       title: 'Kg',
                                       counter: _.kg8,
                                       onAdd: (){
@@ -385,7 +388,7 @@ class _AddResultState extends State<AddResult> {
                                         _.onRemoveCounter9();
                                       },
                                     ),
-                                    CounterColumn(
+                                    CounterKg(
                                       title: 'Kg',
                                       counter: _.kg9,
                                       onAdd: (){
@@ -419,7 +422,7 @@ class _AddResultState extends State<AddResult> {
                                         _.onRemoveCounter10();
                                       },
                                     ),
-                                    CounterColumn(
+                                    CounterKg(
                                       title: 'Kg',
                                       counter: _.kg10,
                                       onAdd: (){
@@ -486,7 +489,7 @@ class _AddResultState extends State<AddResult> {
                                     ),
 
 
-                                    CounterColumn(
+                                    CounterKg(
                                       title: 'Kg',
                                       counter: _.inkg1,
                                       onAdd: (){
@@ -518,7 +521,7 @@ class _AddResultState extends State<AddResult> {
                                         _.onRemoveinCounter2();
                                       },
                                     ),
-                                    CounterColumn(
+                                    CounterKg(
                                       title: 'Kg',
                                       counter: _.inkg2,
                                       onAdd: (){
@@ -552,7 +555,7 @@ class _AddResultState extends State<AddResult> {
                                         _.onRemoveinCounter3();
                                       },
                                     ),
-                                    CounterColumn(
+                                    CounterKg(
                                       title: 'Kg',
                                       counter: _.inkg3,
                                       onAdd: (){
@@ -584,7 +587,7 @@ class _AddResultState extends State<AddResult> {
                                         _.onRemoveinCounter4();
                                       },
                                     ),
-                                    CounterColumn(
+                                    CounterKg(
                                       title: 'Kg',
                                       counter: _.inkg4,
                                       onAdd: (){
@@ -618,7 +621,7 @@ class _AddResultState extends State<AddResult> {
                                         _.onRemoveinCounter5();
                                       },
                                     ),
-                                    CounterColumn(
+                                    CounterKg(
                                       title: 'Kg',
                                       counter: _.inkg5,
                                       onAdd: (){
@@ -650,7 +653,7 @@ class _AddResultState extends State<AddResult> {
                                         _.onRemoveinCounter6();
                                       },
                                     ),
-                                    CounterColumn(
+                                    CounterKg(
                                       title: 'Kg',
                                       counter: _.inkg6,
                                       onAdd: (){
@@ -682,7 +685,7 @@ class _AddResultState extends State<AddResult> {
                                         _.onRemoveinCounter7();
                                       },
                                     ),
-                                    CounterColumn(
+                                    CounterKg(
                                       title: 'Kg',
                                       counter: _.inkg7,
                                       onAdd: (){
@@ -714,7 +717,7 @@ class _AddResultState extends State<AddResult> {
                                         _.onRemoveinCounter8();
                                       },
                                     ),
-                                    CounterColumn(
+                                    CounterKg(
                                       title: 'Kg',
                                       counter: _.inkg8,
                                       onAdd: (){
@@ -748,7 +751,7 @@ class _AddResultState extends State<AddResult> {
                                         _.onRemoveinCounter9();
                                       },
                                     ),
-                                    CounterColumn(
+                                    CounterKg(
                                       title: 'Kg',
                                       counter: _.inkg9,
                                       onAdd: (){
@@ -782,7 +785,7 @@ class _AddResultState extends State<AddResult> {
                                         _.onRemoveinCounter10();
                                       },
                                     ),
-                                    CounterColumn(
+                                    CounterKg(
                                       title: 'Kg',
                                       counter: _.inkg10,
                                       onAdd: (){

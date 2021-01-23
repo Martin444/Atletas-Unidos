@@ -1,9 +1,13 @@
 import 'package:atletasunidos/Widgets/ButtonChartSend.dart';
+import 'package:atletasunidos/Widgets/CreatePublic.dart';
+import 'package:atletasunidos/Widgets/Events/BannerList.dart';
 import 'package:atletasunidos/Widgets/InfoProfile.dart';
+import 'package:atletasunidos/Widgets/PublicList.dart';
 import 'package:atletasunidos/Widgets/const.dart';
 import 'package:atletasunidos/model/user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 
 
 class HomePage extends StatefulWidget {
@@ -18,6 +22,15 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: blackPrimary,
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: redPrimary,
+        child: Icon(Icons.list_alt),
+        onPressed: (){
+            Get.to(CreatePublic(),
+              transition: Transition.rightToLeftWithFade
+            );
+        },
+      ),
       appBar: AppBar(
         leading: Icon(Icons.sort),
         backgroundColor: blackPrimary,
@@ -27,13 +40,8 @@ class _HomePageState extends State<HomePage> {
         padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
         child: SingleChildScrollView(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              InfoProfile(
-                imagePath: widget.user.photoURL,
-                nameU: widget.user.name,  
-              ),
-              SizedBox(height: 30,),
-
               Container(
                 child: Center(
                   child: ButtonSendData(),
@@ -42,36 +50,29 @@ class _HomePageState extends State<HomePage> {
                     // ChartData(titleChar: 'IRG',),
                 ),
               ),
+              SizedBox(height: 30,),
+              Text('Eventos',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 25
+                  ),
+                ),
+                BannerList(), 
+
 
               SizedBox(height: 20,),
 
-              Container(
-                height: 200,
-                child: SvgPicture.asset('assets/analitcs.svg'))
+              Text('Publicaciones',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 25
+                  ),
+                ),
 
-              // ButtonPrimary(
-              //   height: 40,
-              //   text: 'Agregar resultados', 
-              //   onPressed: (){
-              //       Get.to(AddResult(),
-              //         transition: Transition.downToUp,
-              //         curve: Interval(0.65, 1.0),
-              //         duration: Duration(milliseconds: 900)
-              //       );
-              // }),
-              
-              // SizedBox(height: 30,),
-              
-              // Text('Compara el avance de tu grupo',
-              //   textAlign: TextAlign.center,
-              //   style: TextStyle(
-              //       color: Colors.white,
-              //       fontSize: 21,
-              //       fontWeight: FontWeight.bold
-              //     ),
-              // ),
-              // SizedBox(height: 20,),
-              // ListFellow()
+              SizedBox(height: 20,),
+
+              PublicList(),
+              SizedBox(height: 20,),
             ],
           ),
         ),

@@ -26,11 +26,11 @@ class SigninScreen extends StatelessWidget {
               Container(
                 alignment: Alignment.center,
                 margin: EdgeInsets.only(top:20),
-                height: 200,
+                height: Get.height / 4,
                 child: Image.asset('assets/atlType.png')
               ),
               Container(
-                height: 150,
+                height: Get.height / 4,
                 child: Image.asset('assets/atlLog.png')
               ),
 

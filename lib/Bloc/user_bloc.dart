@@ -35,7 +35,7 @@ class UserBloc implements Bloc {
   final _cloudFirestoreRepository = CloudFirestoreRepository();
   void updateUserData(Users user) => _cloudFirestoreRepository.updateUserDataFirestore(user);
 
-  final _firebaseStorageRepository = FirebaseStorageRepository();
+    // final _firebaseStorageRepository = FirebaseStorageRepository();
   // Future<StorageUploadTask> uploadFile(String path, File image) => _firebaseStorageRepository.uploadFile(path, image);
 
   //Creamos un streeam que está escuchando los pedidos y me los trae en tiempo real.

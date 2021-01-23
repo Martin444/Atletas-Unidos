@@ -1,28 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class TextInputLocation extends StatelessWidget {
 
   final String hintText;
   final TextEditingController controller;
   final Widget iconData;
+  void Function(String) onChang;
   TextInputType tipoTeclado;
+  TextCapitalization typeText;
 
   TextInputLocation({
     Key key,
     @required this.hintText,
     @required this.iconData,
     @required this.controller,
-    this.tipoTeclado
+    this.tipoTeclado,
+    this.typeText,
+    this.onChang
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      // padding: EdgeInsets.only(right: 20.0, left: 20.0),
+      padding: EdgeInsets.only(right: 20.0, left: 20.0),
+  
       child: TextField(
         keyboardType: tipoTeclado,
+        onChanged: (value){
+          print(value);
+        },
         controller: controller,
-        textCapitalization: TextCapitalization.characters,
+        textCapitalization: typeText ?? TextCapitalization.characters,
         style: TextStyle(
             fontSize: 19.0,
             fontFamily: "Lato",

@@ -1,4 +1,5 @@
 import 'package:atletasunidos/Controllers/Homecontroller.dart';
+import 'package:atletasunidos/Views/AdminUser/Ui/AdminHome.dart';
 import 'package:atletasunidos/Views/CustomUser/HomePage.dart';
 import 'package:atletasunidos/Widgets/const.dart';
 import 'package:atletasunidos/model/user.dart';
@@ -41,10 +42,14 @@ class _UserDecideState extends State<UserDecide> {
            });
 
            update.updateUsere(widget.user);
+           update.getDataGraphi(widget.user);
 
            switch (widget.user.doctor) {
              case 1:
                 return HomePage(user: widget.user);
+               break;
+             case 2:
+                return AdminHome();
                break;
              default:
            }

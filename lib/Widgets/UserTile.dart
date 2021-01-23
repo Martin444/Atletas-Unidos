@@ -1,7 +1,17 @@
 import 'package:atletasunidos/Widgets/ButtonPrimary.dart';
+import 'package:atletasunidos/Widgets/const.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class UserTile extends StatelessWidget {
+
+  String name;
+  String photo;
+  String uid;
+  int admin;
+
+  UserTile({this.uid, this.name, this.admin, this.photo});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -12,14 +22,14 @@ class UserTile extends StatelessWidget {
           Row(
             children: [
               Container(
-                height: 70,
-                width: 70,
+                height: 50,
+                width: 50,
                 child: CircleAvatar(
-                  backgroundImage: NetworkImage('https://i.pinimg.com/originals/bc/d0/4c/bcd04c92515f8e433ef2cae0890a66f2.jpg'),
+                  backgroundImage: NetworkImage(photo),
                 ),
               ),
               SizedBox(width: 10,),
-              Text('Ricardo Celis',
+              Text(name,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         color: Colors.white,
@@ -30,11 +40,20 @@ class UserTile extends StatelessWidget {
             ],
           ),
 
-          ButtonPrimary(
-            width: 50,
-            height: 30,
-            text: 'ver', 
-            onPressed:(){
+          Switch(
+            value: admin == 1 ? true : false, 
+            activeColor: pinkPrimary,
+            onChanged: (value){
+
+              if(admin ==1){
+                FirebaseFirestore.instance.collection('users').doc(uid).set({
+                  'doctor' : 3
+                }, SetOptions(merge: true));
+              } else {
+                FirebaseFirestore.instance.collection('users').doc(uid).set({
+                  'doctor' : 1
+                }, SetOptions(merge: true));
+              }
 
           })
         ],

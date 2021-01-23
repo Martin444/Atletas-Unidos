@@ -6,6 +6,8 @@ import 'package:atletasunidos/Widgets/const.dart';
 import 'package:atletasunidos/Widgets/counterColumn.dart';
 import 'package:atletasunidos/model/count.dart';
 import 'package:atletasunidos/model/user.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -17,13 +19,76 @@ class HomeControllers extends GetxController {
 
   int _count1 = 1;
   int _count2 = 1;
+  int _countnum = 0;
+  double _limitY = 0.0;
+  double get limity => _limitY;
+  List<int> _countdoc = [];
+  List<double> _listIRG = [];
+  List<String> _listSession = [];
+  List<String> get listSession => _listSession;
+  List<FlSpot> _spots = List<FlSpot>();
+  List<FlSpot> get spots => _spots;
   int get count1 => _count1;
+  int get countnum => _countnum;
   int get count2 => _count2;
+
+  double _irGPizarraMax = 0.0;
+  double get irGPizarra => _irGPizarraMax;
+
+  void getNumbermore (listed){
+      for(int x =0; x < listed.length ; x++){
+            if(listed[x] > _irGPizarraMax){
+              _irGPizarraMax = listed[x];
+            update();
+            }
+          }
+  }
+
+
+  
 
   void updateUsere(Users use){
     _usere = use;
 
     update();
+  }
+
+  void getDataGraphi(Users use){
+    FirebaseFirestore.instance.collection('tabulate').where('userID', isEqualTo:use.uid).get().then((value) => {
+        // Primero recibimos la cantidad de sesiones y lo multiplicamos por 2
+
+          _countnum = value.docs.length *2,
+        for (int count = 0 ; count <= value.docs.length *2 ; count++){
+          if(count %2 == 0){
+            _countdoc.add(count),
+            update(),
+          },
+        },
+
+          value.docs.forEach((element) {
+              _listIRG.add(element.data()['IRGG']);
+              _listSession.add(element.data()['sesionName']);
+            update();
+              // print(spots);
+          }),
+           // Recibimos el numero mayor 
+          for(int x =1; x< _listIRG.length ; x++){
+            if(_listIRG[x] > _limitY){
+              _limitY = _listIRG[x],
+            update()
+            }
+          },
+              
+              
+          for(int f = 0 ; f < value.docs.length; f++){
+              // print(_countdoc.length),
+              // print(_listIRG.length),
+              _spots.add(FlSpot(_countdoc[f].toDouble(), _listIRG[f])),
+              update()
+          },
+
+    });
+    
   }
 
   // Mapas
@@ -143,92 +208,92 @@ class HomeControllers extends GetxController {
   int _incounter22 = 0;
   int get incounter22 => _incounter22;
 
-  int _kg1 = 0;
-  int get kg1 => _kg1;
-  int _kg2 = 0;
-  int get kg2 => _kg2;
-  int _kg3 = 0;
-  int get kg3 => _kg3;
-  int _kg4 = 0;
-  int get kg4 => _kg4;
-  int _kg5 = 0;
-  int get kg5 => _kg5;
-  int _kg6 = 0;
-  int get kg6 => _kg6;
-  int _kg7 = 0;
-  int get kg7 => _kg7;
-  int _kg8 = 0;
-  int get kg8 => _kg8;
-  int _kg9 = 0;
-  int get kg9 => _kg9;
-  int _kg10 = 0;
-  int get kg10 => _kg10;
-  int _kg12 = 0;
-  int get kg11 => _kg12;
-  int _kg13 = 0;
-  int get kg13 => _kg13;
-  int _kg14 = 0;
-  int get kg14 => _kg14;
-  int _kg15 = 0;
-  int get kg15 => _kg15;
-  int _kg16 = 0;
-  int get kg16 => _kg16;
-  int _kg17 = 0;
-  int get kg17 => _kg17;
-  int _kg18 = 0;
-  int get kg18 => _kg18;
-  int _kg19 = 0;
-  int get kg19 => _kg19;
-  int _kg20 = 0;
-  int get kg20 => _kg20;
-  int _kg21 = 0;
-  int get kg21 => _kg21;
-  int _kg22 = 0;
-  int get kg22 => _kg22;
+  double _kg1 = 0;
+  double get kg1 => _kg1;
+  double _kg2 = 0;
+  double get kg2 => _kg2;
+  double _kg3 = 0;
+  double get kg3 => _kg3;
+  double _kg4 = 0;
+  double get kg4 => _kg4;
+  double _kg5 = 0;
+  double get kg5 => _kg5;
+  double _kg6 = 0;
+  double get kg6 => _kg6;
+  double _kg7 = 0;
+  double get kg7 => _kg7;
+  double _kg8 = 0;
+  double get kg8 => _kg8;
+  double _kg9 = 0;
+  double get kg9 => _kg9;
+  double _kg10 = 0;
+  double get kg10 => _kg10;
+  double _kg12 = 0;
+  double get kg11 => _kg12;
+  double _kg13 = 0;
+  double get kg13 => _kg13;
+  double _kg14 = 0;
+  double get kg14 => _kg14;
+  double _kg15 = 0;
+  double get kg15 => _kg15;
+  double _kg16 = 0;
+  double get kg16 => _kg16;
+  double _kg17 = 0;
+  double get kg17 => _kg17;
+  double _kg18 = 0;
+  double get kg18 => _kg18;
+  double _kg19 = 0;
+  double get kg19 => _kg19;
+  double _kg20 = 0;
+  double get kg20 => _kg20;
+  double _kg21 = 0;
+  double get kg21 => _kg21;
+  double _kg22 = 0;
+  double get kg22 => _kg22;
 
   // Variables de kilogramos incompletos
-  int _inkg1 = 0;
-  int get inkg1 => _inkg1;
-  int _inkg2 = 0;
-  int get inkg2 => _inkg2;
-  int _inkg3 = 0;
-  int get inkg3 => _inkg3;
-  int _inkg4 = 0;
-  int get inkg4 => _inkg4;
-  int _inkg5 = 0;
-  int get inkg5 => _inkg5;
-  int _inkg6 = 0;
-  int get inkg6 => _inkg6;
-  int _inkg7 = 0;
-  int get inkg7 => _inkg7;
-  int _inkg8 = 0;
-  int get inkg8 => _inkg8;
-  int _inkg9 = 0;
-  int get inkg9 => _inkg9;
-  int _inkg10 = 0;
-  int get inkg10 => _inkg10;
-  int _inkg12 = 0;
-  int get inkg11 => _inkg12;
-  int _inkg13 = 0;
-  int get inkg13 => _inkg13;
-  int _inkg14 = 0;
-  int get inkg14 => _inkg14;
-  int _inkg15 = 0;
-  int get inkg15 => _inkg15;
-  int _inkg16 = 0;
-  int get inkg16 => _inkg16;
-  int _inkg17 = 0;
-  int get inkg17 => _inkg17;
-  int _inkg18 = 0;
-  int get inkg18 => _inkg18;
-  int _inkg19 = 0;
-  int get inkg19 => _inkg19;
-  int _inkg20 = 0;
-  int get inkg20 => _inkg20;
-  int _inkg21 = 0;
-  int get inkg21 => _inkg21;
-  int _inkg22 = 0;
-  int get inkg22 => _inkg22;
+  double _inkg1 = 0;
+  double get inkg1 => _inkg1;
+  double _inkg2 = 0;
+  double get inkg2 => _inkg2;
+  double _inkg3 = 0;
+  double get inkg3 => _inkg3;
+  double _inkg4 = 0;
+  double get inkg4 => _inkg4;
+  double _inkg5 = 0;
+  double get inkg5 => _inkg5;
+  double _inkg6 = 0;
+  double get inkg6 => _inkg6;
+  double _inkg7 = 0;
+  double get inkg7 => _inkg7;
+  double _inkg8 = 0;
+  double get inkg8 => _inkg8;
+  double _inkg9 = 0;
+  double get inkg9 => _inkg9;
+  double _inkg10 = 0;
+  double get inkg10 => _inkg10;
+  double _inkg12 = 0;
+  double get inkg11 => _inkg12;
+  double _inkg13 = 0;
+  double get inkg13 => _inkg13;
+  double _inkg14 = 0;
+  double get inkg14 => _inkg14;
+  double _inkg15 = 0;
+  double get inkg15 => _inkg15;
+  double _inkg16 = 0;
+  double get inkg16 => _inkg16;
+  double _inkg17 = 0;
+  double get inkg17 => _inkg17;
+  double _inkg18 = 0;
+  double get inkg18 => _inkg18;
+  double _inkg19 = 0;
+  double get inkg19 => _inkg19;
+  double _inkg20 = 0;
+  double get inkg20 => _inkg20;
+  double _inkg21 = 0;
+  double get inkg21 => _inkg21;
+  double _inkg22 = 0;
+  double get inkg22 => _inkg22;
 
   // Add function to one
   void onAddCounter1() {
@@ -364,14 +429,14 @@ class HomeControllers extends GetxController {
 
   // Add function to one
   void onAddkg1() {
-    _kg1 = _kg1 + 1;
+    _kg1 = _kg1 + 0.5;
     update();
     print(_counter1);
   }
 
   void onRemovekg1() {
     if (_kg1 > 0) {
-      _kg1 = _kg1 - 1;
+      _kg1 = _kg1 - 0.5;
     }
     update();
     print(_counter1);
@@ -379,117 +444,117 @@ class HomeControllers extends GetxController {
 
   // Add function to one
   void onAddkg2() {
-    _kg2 = _kg2 + 1;
+    _kg2 = _kg2 + 0.5;
     update();
   }
 
   void onRemovekg2() {
     if (_kg2 > 0) {
-      _kg2 = _kg2 - 1;
+      _kg2 = _kg2 - 0.5;
     }
     update();
   }
 
   // Add function to one
   void onAddkg3() {
-    _kg3 = _kg3 + 1;
+    _kg3 = _kg3 + 0.5;
     update();
   }
 
   void onRemovekg3() {
     if (_kg3 > 0) {
-      _kg3 = _kg3 - 1;
+      _kg3 = _kg3 - 0.5;
     }
     update();
   }
 
   // Add function to one
   void onAddkg4() {
-    _kg4 = _kg4 + 1;
+    _kg4 = _kg4 + 0.5;
     update();
   }
 
   void onRemovekg4() {
     if (_kg4 > 0) {
-      _kg4 = _kg4 - 1;
+      _kg4 = _kg4 - 0.5;
     }
     update();
   }
 
   // Add function to one
   void onAddkg5() {
-    _kg5 = _kg5 + 1;
+    _kg5 = _kg5 + 0.5;
     update();
   }
 
   void onRemovekg5() {
     if (_kg5 > 0) {
-      _kg5 = _kg5 - 1;
+      _kg5 = _kg5 - 0.5;
     }
     update();
   }
 
   // Add function to one
   void onAddkg6() {
-    _kg6 = _kg6 + 1;
+    _kg6 = _kg6 + 0.5;
     update();
   }
 
   void onRemovekg6() {
     if (_kg6 > 0) {
-      _kg6 = _kg6 - 1;
+      _kg6 = _kg6 - 0.5;
     }
     update();
   }
 
   // Add function to one
   void onAddkg7() {
-    _kg7 = _kg7 + 1;
+    _kg7 = _kg7 + 0.5;
     update();
   }
 
   void onRemovekg7() {
     if (_kg7 > 0) {
-      _kg7 = _kg7 - 1;
+      _kg7 = _kg7 - 0.5;
     }
     update();
   }
 
   // Add function to one
   void onAddkg8() {
-    _kg8 = _kg8 + 1;
+    _kg8 = _kg8 + 0.5;
     update();
   }
 
   void onRemovekg8() {
     if (_kg8 > 0) {
-      _kg8 = _kg8 - 1;
+      _kg8 = _kg8 - 0.5;
     }
     update();
   }
 
   // Add function to one
   void onAddkg9() {
-    _kg9 = _kg9 + 1;
+    _kg9 = _kg9 + 0.5;
     update();
   }
 
   void onRemovekg9() {
     if (_kg9 > 0) {
-      _kg9 = _kg9 - 1;
+      _kg9 = _kg9 - 0.5;
     }
     update();
   }
 
   // Add function to one
   void onAddkg10() {
-    _kg10 = _kg10 + 1;
+    _kg10 = _kg10 + 0.5;
     update();
   }
 
   void onRemovekg10() {
     if (_kg10 > 0) {
-      _kg10 = _kg10 - 1;
+      _kg10 = _kg10 - 0.5;
     }
     update();
   }
@@ -846,16 +911,17 @@ class HomeControllers extends GetxController {
     var ttlReps8 = _counter8 * _rounds;
     var ttlReps9 = _counter9 * _rounds;
     var ttlReps10 = _counter10 * _rounds;
-    var inttlReps1 = _incounter1 * _rounds;
-    var inttlReps2 = _incounter2 * _rounds;
-    var inttlReps3 = _incounter3 * _rounds;
-    var inttlReps4 = _incounter4 * _rounds;
-    var inttlReps5 = _incounter5 * _rounds;
-    var inttlReps6 = _incounter6 * _rounds;
-    var inttlReps7 = _incounter7 * _rounds;
-    var inttlReps8 = _incounter8 * _rounds;
-    var inttlReps9 = _incounter9 * _rounds;
-    var inttlReps10 = _incounter10 * _rounds;
+
+    var inttlReps1 = _incounter1;
+    var inttlReps2 = _incounter2;
+    var inttlReps3 = _incounter3;
+    var inttlReps4 = _incounter4;
+    var inttlReps5 = _incounter5;
+    var inttlReps6 = _incounter6;
+    var inttlReps7 = _incounter7;
+    var inttlReps8 = _incounter8;
+    var inttlReps9 = _incounter9;
+    var inttlReps10 = _incounter10;
 
 
     // Sumamos el total de las repeticiones
@@ -1169,4 +1235,6 @@ class HomeControllers extends GetxController {
       ),
     ));
   }
+
+
 }
