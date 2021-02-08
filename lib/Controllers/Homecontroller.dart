@@ -1,6 +1,7 @@
 import 'dart:core';
 
 import 'package:atletasunidos/Views/CustomUser/AddHitBResult.dart';
+import 'package:atletasunidos/Views/CustomUser/AddResults.dart';
 import 'package:atletasunidos/Widgets/ButtonPrimary.dart';
 import 'package:atletasunidos/Widgets/const.dart';
 import 'package:atletasunidos/Widgets/counterColumn.dart';
@@ -13,9 +14,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class HomeControllers extends GetxController {
-
   Users _usere;
   Users get usere => _usere;
+
+  List<dynamic> hitses = [];
 
   int _count1 = 1;
   int _count2 = 1;
@@ -35,60 +37,59 @@ class HomeControllers extends GetxController {
   double _irGPizarraMax = 0.0;
   double get irGPizarra => _irGPizarraMax;
 
-  void getNumbermore (listed){
-      for(int x =0; x < listed.length ; x++){
-            if(listed[x] > _irGPizarraMax){
-              _irGPizarraMax = listed[x];
-            update();
-            }
-          }
+  void getNumbermore(listed) {
+    for (int x = 0; x < listed.length; x++) {
+      if (listed[x] > _irGPizarraMax) {
+        _irGPizarraMax = listed[x];
+        update();
+      }
+    }
   }
 
-
-  
-
-  void updateUsere(Users use){
+  void updateUsere(Users use) {
     _usere = use;
 
     update();
   }
 
-  void getDataGraphi(Users use){
-    FirebaseFirestore.instance.collection('tabulate').where('userID', isEqualTo:use.uid).get().then((value) => {
-        // Primero recibimos la cantidad de sesiones y lo multiplicamos por 2
+  void getDataGraphi(Users use) {
+    FirebaseFirestore.instance
+        .collection('tabulate')
+        .where('userID', isEqualTo: use.uid)
+        .get()
+        .then((value) => {
+              // Primero recibimos la cantidad de sesiones y lo multiplicamos por 2
 
-          _countnum = value.docs.length *2,
-        for (int count = 0 ; count <= value.docs.length *2 ; count++){
-          if(count %2 == 0){
-            _countdoc.add(count),
-            update(),
-          },
-        },
+              _countnum = value.docs.length * 2,
+              for (int count = 0; count <= value.docs.length * 2; count++)
+                {
+                  if (count % 2 == 0)
+                    {
+                      _countdoc.add(count),
+                      update(),
+                    },
+                },
 
-          value.docs.forEach((element) {
-              _listIRG.add(element.data()['IRGG']);
-              _listSession.add(element.data()['sesionName']);
-            update();
-              // print(spots);
-          }),
-           // Recibimos el numero mayor 
-          for(int x =1; x< _listIRG.length ; x++){
-            if(_listIRG[x] > _limitY){
-              _limitY = _listIRG[x],
-            update()
-            }
-          },
-              
-              
-          for(int f = 0 ; f < value.docs.length; f++){
-              // print(_countdoc.length),
-              // print(_listIRG.length),
-              _spots.add(FlSpot(_countdoc[f].toDouble(), _listIRG[f])),
-              update()
-          },
+              value.docs.forEach((element) {
+                _listIRG.add(element.data()['IRGG']);
+                _listSession.add(element.data()['sesionName']);
+                update();
+                // print(spots);
+              }),
+              // Recibimos el numero mayor
+              for (int x = 1; x < _listIRG.length; x++)
+                {
+                  if (_listIRG[x] > _limitY) {_limitY = _listIRG[x], update()}
+                },
 
-    });
-    
+              for (int f = 0; f < value.docs.length; f++)
+                {
+                  // print(_countdoc.length),
+                  // print(_listIRG.length),
+                  _spots.add(FlSpot(_countdoc[f].toDouble(), _listIRG[f])),
+                  update()
+                },
+            });
   }
 
   // Mapas
@@ -113,7 +114,7 @@ class HomeControllers extends GetxController {
   double _irkOne = 0.0;
   double get irkOne => _irkOne;
   double _irrOne = 0.0;
-  double get irrOne=> _irrOne;
+  double get irrOne => _irrOne;
   double _irgOne = 0.0;
   double get irgOne => _irgOne;
 
@@ -162,7 +163,6 @@ class HomeControllers extends GetxController {
   int get counter21 => _counter21;
   int _counter22 = 0;
   int get counter22 => _counter22;
-
 
   // V_ariables para los contadores de los ejercicios Incompletos
   int _incounter1 = 0;
@@ -558,6 +558,7 @@ class HomeControllers extends GetxController {
     }
     update();
   }
+
   // Add function to one
   void onAddinCounter1() {
     _incounter1 = _incounter1 + 1;
@@ -692,14 +693,14 @@ class HomeControllers extends GetxController {
 
   // Add function to one
   void onAddinkg1() {
-    _inkg1 = _inkg1 + 1;
+    _inkg1 = _inkg1 + 0.5;
     update();
     print(_counter1);
   }
 
   void onRemoveinkg1() {
     if (_inkg1 > 0) {
-      _inkg1 = _inkg1 - 1;
+      _inkg1 = _inkg1 - 0.5;
     }
     update();
     print(_counter1);
@@ -707,122 +708,128 @@ class HomeControllers extends GetxController {
 
   // Add function to one
   void onAddinkg2() {
-    _inkg2 = _inkg2 + 1;
+    _inkg2 = _inkg2 + 0.5;
     update();
   }
 
   void onRemoveinkg2() {
     if (_inkg2 > 0) {
-      _inkg2 = _inkg2 - 1;
+      _inkg2 = _inkg2 - 0.5;
     }
     update();
   }
 
   // Add function to one
   void onAddinkg3() {
-    _inkg3 = _inkg3 + 1;
+    _inkg3 = _inkg3 + 0.5;
     update();
   }
 
   void onRemoveinkg3() {
     if (_inkg3 > 0) {
-      _inkg3 = _inkg3 - 1;
+      _inkg3 = _inkg3 - 0.5;
     }
     update();
   }
 
   // Add function to one
   void onAddinkg4() {
-    _inkg4 = _inkg4 + 1;
+    _inkg4 = _inkg4 + 0.5;
     update();
   }
 
   void onRemoveinkg4() {
     if (_inkg4 > 0) {
-      _inkg4 = _inkg4 - 1;
+      _inkg4 = _inkg4 - 0.5;
     }
     update();
   }
 
   // Add function to one
   void onAddinkg5() {
-    _inkg5 = _inkg5 + 1;
+    _inkg5 = _inkg5 + 0.5;
     update();
   }
 
   void onRemoveinkg5() {
     if (_inkg5 > 0) {
-      _inkg5 = _inkg5 - 1;
+      _inkg5 = _inkg5 - 0.5;
     }
     update();
   }
 
   // Add function to one
   void onAddinkg6() {
-    _inkg6 = _inkg6 + 1;
+    _inkg6 = _inkg6 + 0.5;
     update();
   }
 
   void onRemoveinkg6() {
     if (_inkg6 > 0) {
-      _inkg6 = _inkg6 - 1;
+      _inkg6 = _inkg6 - 0.5;
     }
     update();
   }
 
   // Add function to one
   void onAddinkg7() {
-    _inkg7 = _inkg7 + 1;
+    _inkg7 = _inkg7 + 0.5;
     update();
   }
 
   void onRemoveinkg7() {
     if (_inkg7 > 0) {
-      _inkg7 = _inkg7 - 1;
+      _inkg7 = _inkg7 - 0.5;
     }
     update();
   }
 
   // Add function to one
   void onAddinkg8() {
-    _inkg8 = _inkg8 + 1;
+    _inkg8 = _inkg8 + 0.5;
     update();
   }
 
   void onRemoveinkg8() {
     if (_inkg8 > 0) {
-      _inkg8 = _inkg8 - 1;
+      _inkg8 = _inkg8 - 0.5;
     }
     update();
   }
 
   // Add function to one
   void onAddinkg9() {
-    _inkg9 = _inkg9 + 1;
+    _inkg9 = _inkg9 + 0.5;
     update();
   }
 
   void onRemoveinkg9() {
     if (_inkg9 > 0) {
-      _inkg9 = _inkg9 - 1;
+      _inkg9 = _inkg9 - 0.5;
     }
     update();
   }
 
   // Add function to one
   void onAddinkg10() {
-    _inkg10 = _inkg10 + 1;
+    _inkg10 = _inkg10 + 0.5;
     update();
   }
 
   void onRemoveinkg10() {
     if (_inkg10 > 0) {
-      _inkg10 = _inkg10 - 1;
+      _inkg10 = _inkg10 - 0.5;
     }
     update();
   }
 
-  void calculateIterations() {
+  void calculateIterations(
+      {@required int typeIned,
+      @required int hits,
+      @required String sessionName}) {
+    double numerG = 0;
+    double numerK = 0;
+    double numerR = 0;
     // Primero buscamos el tiempo total
     var minutC = _minute * 60;
     var timeCom = minutC + _seconds;
@@ -874,8 +881,8 @@ class HomeControllers extends GetxController {
     var inttlKG9 = inkgxser9 * _rounds;
     var inttlKG10 = inkgxser10 * _rounds;
 
-    // Ahora sumamos todos los kilos totales 
-    
+    // Ahora sumamos todos los kilos totales
+
     var totalKilos = ttlKG1 +
         ttlKG2 +
         ttlKG3 +
@@ -923,7 +930,6 @@ class HomeControllers extends GetxController {
     var inttlReps9 = _incounter9;
     var inttlReps10 = _incounter10;
 
-
     // Sumamos el total de las repeticiones
 
     var totalReps = ttlReps1 +
@@ -949,164 +955,263 @@ class HomeControllers extends GetxController {
 
     print(totalReps);
 
+    // Calculamos el IRK
 
-    // Calculamos el IRK 
+    double irk1 = totalKilos / timeCom;
 
-    double irk1 = totalKilos/ timeCom;
-
-    print('El IRK es de $irk1');
+    // print('El IRK es de $irk1');
 
     // Calculamos el IRR
 
-    double irr1 = totalReps / timeCom* 10;
+    double irr1 = totalReps / timeCom * 10;
 
-    print('El IRR es de $irr1');
+    // print('El IRR es de $irr1');
 
-    // Calculamos el IRG 
+    // Calculamos el IRG
 
     double irg1 = irk1 + irr1;
 
-    print('El IRG es de $irg1');
+    // print('El IRG es de $irg1');
 
-    buttonSheetIndices(irk1, irr1, irg1);
+    var data = {
+      'IRG${hitses.length + 1}': irg1,
+      'IRK${hitses.length + 1}': irk1,
+      'IRR${hitses.length + 1}': irr1,
+    };
 
+    print(hits);
+    print(hitses.length);
+    for (var cont = 0; cont < hitses.length; cont++) {
+      if (hitses.length > 0) {
+        numerG = numerG + hitses[cont]['IRG${cont + 1}'];
+        numerR = numerR + hitses[cont]['IRR${cont + 1}'];
+        numerK = numerK + hitses[cont]['IRK${cont + 1}'];
+      }
+      update();
+    }
+
+    if (hitses.length < hits) {
+      hitses.add(data);
+      Get.back();
+      Get.to(
+          AddResult(hits: hits, typeInde: typeIned, sessionName: sessionName));
+    } else {
+      buttonSheetIndices(numerK, numerR, numerG, hitses, sessionName);
+    }
   }
-
 
   // Abrir el buttombarshee una vez cargados los datos
 
-  void buttonSheetIndices(double irk, double irr, double irg){
+  void buttonSheetIndices(
+    double irk,
+    double irr,
+    double irg,
+    List<dynamic> hits,
+    String sessionName,
+  ) {
+    List<Row> irs = [];
+    List<double> irgs = [];
+    List<double> irks = [];
+    List<double> irrs = [];
+    List<Row> irsK = [];
+    List<Row> irsR = [];
+    print(hits);
+    for (var i = 0; i < hits.length; i++) {
+      irgs.add(hits[i]['IRG${i + 1}']);
+      irks.add(hits[i]['IRK${i + 1}']);
+      irrs.add(hits[i]['IRR${i + 1}']);
 
-    Get.dialog(
-      Dialog(
-        child: Container(
-          height: 200,
-          padding: EdgeInsets.symmetric(vertical: 10,horizontal: 20),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20)
+      irsK.add(Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            'IRK${i + 1}',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
           ),
-          child: Column(
-            children: [
-              Text('Tus indices en el HIT A',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18
+          Text(
+            '${hits[i]['IRK${i + 1}'].toStringAsFixed(1)}',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+          ),
+        ],
+      ));
+      irsR.add(Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            'IRR${i + 1}',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+          ),
+          Text(
+            '${hits[i]['IRR${i + 1}'].toStringAsFixed(1)}',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+          ),
+        ],
+      ));
+
+      irs.add(Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            'IRG${i + 1}',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+          ),
+          Text(
+            '${hits[i]['IRG${i + 1}'].toStringAsFixed(1)}',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+          ),
+        ],
+      ));
+    }
+
+    Get.dialog(Dialog(
+      child: Container(
+        // height: 200,
+
+        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
+        child: Column(
+          children: [
+            Text(
+              'Tus indices por kilo',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+            ),
+            Divider(
+              thickness: 1.0,
+              color: Colors.black45,
+            ),
+            Column(children: irsK),
+            Text(
+              'Tus indices por repeticion',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+            ),
+            Divider(
+              thickness: 1.0,
+              color: Colors.black45,
+            ),
+            Column(children: irsR),
+            Text(
+              'Tus indices generales',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+            ),
+            Divider(
+              thickness: 1.0,
+              color: Colors.black45,
+            ),
+            Column(children: irs),
+            SizedBox(
+              height: 10,
+            ),
+            Text(
+              'Tus indices totales',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+            ),
+            Divider(
+              thickness: 1.0,
+              color: Colors.black45,
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'IRK',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                 ),
-              ),
-
-              Divider(
-                thickness: 1.0,
-                color: Colors.black45,
-              ),
-
-              SizedBox(height: 10,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text('IRK',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18
-                    ),
-                  ),
-
-                  Text('${irk.toStringAsFixed(1)}',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18
-                    ),
-                  ),
-
-                ],
-              ),
-            
-              SizedBox(height: 10,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text('IRR',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18
-                    ),
-                  ),
-
-                  Text('${irr.toStringAsFixed(1)}',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18
-                    ),
-                  ),
-
-                ],
-              ),
-            
-              SizedBox(height: 10,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text('IRG',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18
-                    ),
-                  ),
-
-                  Text('${irg.toStringAsFixed(1)}',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18
-                    ),
-                  ),
-
-                ],
-              ),
-            
-              SizedBox(height: 10,),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  GestureDetector(
-                    onTap: (){
-                      Get.back();
-                    },
-                    child: Container(
-                      margin: EdgeInsets.only(right: 10),
-                      height: 40,
-                      width: 80,
-                      decoration: BoxDecoration(
+                Text(
+                  '${irk.toStringAsFixed(1)}',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'IRR',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                ),
+                Text(
+                  '${irr.toStringAsFixed(1)}',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'IRG',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                ),
+                Text(
+                  '${irg.toStringAsFixed(1)}',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    Get.back();
+                  },
+                  child: Container(
+                    margin: EdgeInsets.only(right: 10),
+                    height: 40,
+                    width: 80,
+                    decoration: BoxDecoration(
                         color: Color(0xffdfdddd),
-                        borderRadius: BorderRadius.circular(5)
-                      ),
-                      child: Center(
-                        child: Text('Cancelar'),
-                      ),
+                        borderRadius: BorderRadius.circular(5)),
+                    child: Center(
+                      child: Text('Cancelar'),
                     ),
                   ),
-                  ButtonPrimary(
+                ),
+                ButtonPrimary(
                     height: 40,
                     width: 90,
                     text: 'Guardar',
-                    onPressed: (){
-                      _irkOne = irk;
-                      _irrOne = irr;
-                      _irgOne = irg;
-                      update();
+                    onPressed: () {
+                      print(irgs);
+                      print(irks);
+                      print(irrs);
 
-                      Get.back();
-                      Get.back();
-                      Get.to(AddHitBResult());
+                      var data = {
+                        'IRGS': irgs,
+                        'IRKS': irks,
+                        'IRRS': irrs,
+                        'IRGG': irg,
+                        'IRKG': irk,
+                        'IRRG': irr,
+                        'sesionName': sessionName,
+                        'userID': usere.uid,
+                        'date': DateTime.now(),
+                      };
 
+                      FirebaseFirestore.instance
+                          .collection('tabulate')
+                          .add(data)
+                          .then((value) => {Get.back(), Get.back()});
                     })
-                ],
-              )
-            ],
-          ),
+              ],
+            )
+          ],
         ),
-      )
-    );
-
+      ),
+    ));
   }
 
   // Rounds incompletos
@@ -1208,7 +1313,6 @@ class HomeControllers extends GetxController {
     update();
   }
 
-
   loading() {
     Get.dialog(Dialog(
       child: Container(
@@ -1235,6 +1339,4 @@ class HomeControllers extends GetxController {
       ),
     ));
   }
-
-
 }

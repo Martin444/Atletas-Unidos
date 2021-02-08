@@ -15,11 +15,19 @@
       },
       "oauth_client": [
         {
-          "client_id": "803646067440-qggqf2l3cmd29es1khnnl5dfjevkc4u2.apps.googleusercontent.com",
+          "client_id": "803646067440-deoa34av48ia6ka9knupgmncfm226ka5.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.atletas.atletasunidos",
-            "certificate_hash": "52267c6c176e0f9e0cedee73e0f2ce82d74387e8"
+            "certificate_hash": "7745955890c4d5ed79da66350ccfe0b259a96166"
+          }
+        },
+        {
+          "client_id": "803646067440-kmu7urqhqh7utela7qhrrrsp6trludgt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.atletas.atletasunidos",
+            "certificate_hash": "011806c80feb58e3f654c8b8840c574bb0f7920b"
           }
         },
         {
@@ -31,11 +39,11 @@
           }
         },
         {
-          "client_id": "803646067440-kmu7urqhqh7utela7qhrrrsp6trludgt.apps.googleusercontent.com",
+          "client_id": "803646067440-qggqf2l3cmd29es1khnnl5dfjevkc4u2.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.atletas.atletasunidos",
-            "certificate_hash": "011806c80feb58e3f654c8b8840c574bb0f7920b"
+            "certificate_hash": "52267c6c176e0f9e0cedee73e0f2ce82d74387e8"
           }
         },
         {
@@ -54,6 +62,13 @@
             {
               "client_id": "803646067440-cmskek8fuvmnup7kn8kn8ineqdjqk1kr.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "803646067440-uripa0j659mq4tgbcge3a3lac8afriii.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.martin.atletas"
+              }
             }
           ]
         }

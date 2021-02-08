@@ -10,77 +10,79 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class AddResult extends StatefulWidget {
-  int typeInde;
+  int typeInde = 0;
+  int hits = 1;
+  String sessionName;
 
-  AddResult({this.typeInde});
-
-
+  AddResult({
+    this.typeInde,
+    @required this.hits,
+    @required this.sessionName,
+  });
 
   @override
   _AddResultState createState() => _AddResultState();
 }
 
 class _AddResultState extends State<AddResult> {
-  
-
-
   @override
   Widget build(BuildContext context) {
-
     return GetBuilder<HomeControllers>(
-      init: HomeControllers(),
-      builder: (_) {
-        return Scaffold(
-          backgroundColor: blackPrimary,
-          body: Container(
-            padding: EdgeInsets.symmetric(horizontal: 20),
-            child: SingleChildScrollView(
+        init: HomeControllers(),
+        builder: (_) {
+          return Scaffold(
+            backgroundColor: blackPrimary,
+            body: Container(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    SizedBox(height: 60,),
-                    Text('Agrega resultados HIT A',
+                    SizedBox(
+                      height: 60,
+                    ),
+                    Text(
+                      'Agrega resultados HIT ${_.hitses.length}/${widget.hits}',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 23,
-                          fontWeight: FontWeight.bold
-                        ),
+                          fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(height: 20,),
-                    TextInputLocation(
-                      hintText: 'Sessión', 
-                      iconData: null, 
-                      controller: _.session),
-                    SizedBox(height: 20,),
+                    SizedBox(
+                      height: 20,
+                    ),
+
                     Container(
-                      child: Text('Tiempo',
+                      child: Text(
+                        'Tiempo',
                         style: TextStyle(
                             fontSize: 19.0,
                             fontFamily: "Lato",
                             color: Colors.white,
-                            fontWeight: FontWeight.bold
-                        ),
+                            fontWeight: FontWeight.bold),
                       ),
                     ),
                     CounterInput(
                       title: 'Minutos',
                       counter: _.minute,
-                      onRemuve:(){
-                         _.onRemoveMinutes();
+                      onRemuve: () {
+                        _.onRemoveMinutes();
                       },
-                      onAdded: (){
+                      onAdded: () {
                         print('hola');
                         _.onAddMinutes();
                       },
                     ),
-                    SizedBox(height: 10,),
+                    SizedBox(
+                      height: 10,
+                    ),
                     CounterInput(
                       title: 'Segundos',
                       counter: _.seconds,
-                      onRemuve:(){
-                         _.onRemoveSeconds();
+                      onRemuve: () {
+                        _.onRemoveSeconds();
                       },
-                      onAdded: (){
+                      onAdded: () {
                         _.onAddSeconds();
                       },
                     ),
@@ -92,11 +94,10 @@ class _AddResultState extends State<AddResult> {
                     CounterInput(
                       title: 'Rounds',
                       counter: _.rounds,
-                      onRemuve:(){
-                         _.onRemoveRounds();
+                      onRemuve: () {
+                        _.onRemoveRounds();
                       },
-                      onAdded: (){
-                        
+                      onAdded: () {
                         _.onAddRounds();
                       },
                     ),
@@ -105,738 +106,712 @@ class _AddResultState extends State<AddResult> {
                       color: Colors.white,
                     ),
 
-                      Column(
-                        children: [
-                          // Primer contadors
-                          _.count1 >= 1 ?
-                            Container(
+                    Column(
+                      children: [
+                        // Primer contadors
+                        _.count1 >= 1
+                            ? Container(
                                 padding: EdgeInsets.only(bottom: 15),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     CounterColumn(
                                       title: 'Repeticiones',
                                       counter: _.counter1,
-                                      onAdd: (){
+                                      onAdd: () {
                                         _.onAddCounter1();
                                       },
-                                      onRemove: (){
+                                      onRemove: () {
                                         _.onRemoveCounter1();
                                       },
                                     ),
-
-
                                     CounterKg(
                                       title: 'Kg',
                                       counter: _.kg1,
-                                      onAdd: (){
+                                      onAdd: () {
                                         _.onAddkg1();
                                       },
-                                      onRemove: (){
+                                      onRemove: () {
                                         _.onRemovekg1();
                                       },
                                     ),
                                   ],
                                 ),
                               )
-                          :
-                            Container(),
-                          // segundo contadors
-                          _.count1 >= 2 ?
-                            Container(
+                            : Container(),
+                        // segundo contadors
+                        _.count1 >= 2
+                            ? Container(
                                 padding: EdgeInsets.only(bottom: 15),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     CounterColumn(
                                       title: 'Repeticiones',
                                       counter: _.counter2,
-                                      onAdd: (){
+                                      onAdd: () {
                                         _.onAddCounter2();
                                       },
-                                      onRemove: (){
+                                      onRemove: () {
                                         _.onRemoveCounter2();
                                       },
                                     ),
                                     CounterKg(
                                       title: 'Kg',
                                       counter: _.kg2,
-                                      onAdd: (){
+                                      onAdd: () {
                                         _.onAddkg2();
                                       },
-                                      onRemove: (){
+                                      onRemove: () {
                                         _.onRemovekg2();
                                       },
                                     ),
                                   ],
                                 ),
                               )
-                          :
-                            Container(
-                              
-                            ),
-                          // tercer contadors
-                          _.count1 >= 3 ?
-                            Container(
+                            : Container(),
+                        // tercer contadors
+                        _.count1 >= 3
+                            ? Container(
                                 padding: EdgeInsets.only(bottom: 15),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     CounterColumn(
                                       title: 'Repeticiones',
                                       counter: _.counter3,
-                                      onAdd: (){
+                                      onAdd: () {
                                         _.onAddCounter3();
                                       },
-                                      onRemove: (){
+                                      onRemove: () {
                                         _.onRemoveCounter3();
                                       },
                                     ),
                                     CounterKg(
                                       title: 'Kg',
                                       counter: _.kg3,
-                                      onAdd: (){
+                                      onAdd: () {
                                         _.onAddkg3();
                                       },
-                                      onRemove: (){
+                                      onRemove: () {
                                         _.onRemovekg3();
                                       },
                                     ),
                                   ],
                                 ),
                               )
-                          :
-                            Container(),
-                          // Cuarto contadors
-                          _.count1 >= 4 ?
-                            Container(
+                            : Container(),
+                        // Cuarto contadors
+                        _.count1 >= 4
+                            ? Container(
                                 padding: EdgeInsets.only(bottom: 15),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     CounterColumn(
                                       title: 'Repeticiones',
                                       counter: _.counter4,
-                                      onAdd: (){
+                                      onAdd: () {
                                         _.onAddCounter4();
                                       },
-                                      onRemove: (){
+                                      onRemove: () {
                                         _.onRemoveCounter4();
                                       },
                                     ),
                                     CounterKg(
                                       title: 'Kg',
                                       counter: _.kg4,
-                                      onAdd: (){
+                                      onAdd: () {
                                         _.onAddkg4();
                                       },
-                                      onRemove: (){
+                                      onRemove: () {
                                         _.onRemovekg4();
                                       },
                                     ),
                                   ],
                                 ),
                               )
-                          :
-                            Container(
-                              
-                            ),
-                          // Quinto contadors
-                          _.count1 >= 5 ?
-                            Container(
+                            : Container(),
+                        // Quinto contadors
+                        _.count1 >= 5
+                            ? Container(
                                 padding: EdgeInsets.only(bottom: 15),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     CounterColumn(
                                       title: 'Repeticiones',
                                       counter: _.counter5,
-                                      onAdd: (){
+                                      onAdd: () {
                                         _.onAddCounter5();
                                       },
-                                      onRemove: (){
+                                      onRemove: () {
                                         _.onRemoveCounter5();
                                       },
                                     ),
                                     CounterKg(
                                       title: 'Kg',
                                       counter: _.kg5,
-                                      onAdd: (){
+                                      onAdd: () {
                                         _.onAddkg5();
                                       },
-                                      onRemove: (){
+                                      onRemove: () {
                                         _.onRemovekg5();
                                       },
                                     ),
                                   ],
                                 ),
                               )
-                          :
-                            Container(),
-                          // Sexto contadors
-                          _.count1 >= 6 ?
-                            Container(
+                            : Container(),
+                        // Sexto contadors
+                        _.count1 >= 6
+                            ? Container(
                                 padding: EdgeInsets.only(bottom: 15),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     CounterColumn(
                                       title: 'Repeticiones',
                                       counter: _.counter6,
-                                      onAdd: (){
+                                      onAdd: () {
                                         _.onAddCounter6();
                                       },
-                                      onRemove: (){
+                                      onRemove: () {
                                         _.onRemoveCounter6();
                                       },
                                     ),
                                     CounterKg(
                                       title: 'Kg',
                                       counter: _.kg6,
-                                      onAdd: (){
+                                      onAdd: () {
                                         _.onAddkg6();
                                       },
-                                      onRemove: (){
+                                      onRemove: () {
                                         _.onRemovekg6();
                                       },
                                     ),
                                   ],
                                 ),
                               )
-                          :
-                            Container(),
-                          // Septimo contadors
-                          _.count1 >= 7 ?
-                            Container(
+                            : Container(),
+                        // Septimo contadors
+                        _.count1 >= 7
+                            ? Container(
                                 padding: EdgeInsets.only(bottom: 15),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     CounterColumn(
                                       title: 'Repeticiones',
                                       counter: _.counter7,
-                                      onAdd: (){
+                                      onAdd: () {
                                         _.onAddCounter7();
                                       },
-                                      onRemove: (){
+                                      onRemove: () {
                                         _.onRemoveCounter7();
                                       },
                                     ),
                                     CounterKg(
                                       title: 'Kg',
                                       counter: _.kg7,
-                                      onAdd: (){
+                                      onAdd: () {
                                         _.onAddkg7();
                                       },
-                                      onRemove: (){
+                                      onRemove: () {
                                         _.onRemovekg7();
                                       },
                                     ),
                                   ],
                                 ),
                               )
-                          :
-                            Container(),
-                          // Octavo contadors
-                          _.count1 >= 8 ?
-                            Container(
+                            : Container(),
+                        // Octavo contadors
+                        _.count1 >= 8
+                            ? Container(
                                 padding: EdgeInsets.only(bottom: 15),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     CounterColumn(
                                       title: 'Repeticiones',
                                       counter: _.counter8,
-                                      onAdd: (){
+                                      onAdd: () {
                                         _.onAddCounter8();
                                       },
-                                      onRemove: (){
+                                      onRemove: () {
                                         _.onRemoveCounter8();
                                       },
                                     ),
                                     CounterKg(
                                       title: 'Kg',
                                       counter: _.kg8,
-                                      onAdd: (){
+                                      onAdd: () {
                                         _.onAddkg8();
                                       },
-                                      onRemove: (){
+                                      onRemove: () {
                                         _.onRemovekg8();
                                       },
                                     ),
                                   ],
                                 ),
                               )
-                          :
-                            Container(
-                              
-                            ),
-                          // Noveno contadors
-                          _.count1 >= 9 ?
-                            Container(
+                            : Container(),
+                        // Noveno contadors
+                        _.count1 >= 9
+                            ? Container(
                                 padding: EdgeInsets.only(bottom: 15),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     CounterColumn(
                                       title: 'Repeticiones',
                                       counter: _.counter9,
-                                      onAdd: (){
+                                      onAdd: () {
                                         _.onAddCounter9();
                                       },
-                                      onRemove: (){
+                                      onRemove: () {
                                         _.onRemoveCounter9();
                                       },
                                     ),
                                     CounterKg(
                                       title: 'Kg',
                                       counter: _.kg9,
-                                      onAdd: (){
+                                      onAdd: () {
                                         _.onAddkg9();
                                       },
-                                      onRemove: (){
+                                      onRemove: () {
                                         _.onRemovekg9();
                                       },
                                     ),
                                   ],
                                 ),
                               )
-                          :
-                            Container(
-                              
-                            ),
-                          // Decimo contadors
-                          _.count1 >= 10 ?
-                            Container(
+                            : Container(),
+                        // Decimo contadors
+                        _.count1 >= 10
+                            ? Container(
                                 padding: EdgeInsets.only(bottom: 15),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     CounterColumn(
                                       title: 'Repeticiones',
                                       counter: _.counter10,
-                                      onAdd: (){
+                                      onAdd: () {
                                         _.onAddCounter10();
                                       },
-                                      onRemove: (){
+                                      onRemove: () {
                                         _.onRemoveCounter10();
                                       },
                                     ),
                                     CounterKg(
                                       title: 'Kg',
                                       counter: _.kg10,
-                                      onAdd: (){
+                                      onAdd: () {
                                         _.onAddkg10();
                                       },
-                                      onRemove: (){
+                                      onRemove: () {
                                         _.onRemovekg10();
                                       },
                                     ),
                                   ],
                                 ),
                               )
-                          :
-                            Container(
-                              
-                            ),
-                        
-                        ],
-                      ),
-                  
-                                      
+                            : Container(),
+                      ],
+                    ),
 
                     ButtonPrimary(
-                      height: 40,
-                      width: 100,
-                      text: 'Agregar', 
-                      onPressed: (){
-                        _.updateList1();
-                      }),
+                        height: 40,
+                        width: 100,
+                        text: 'Agregar',
+                        onPressed: () {
+                          _.updateList1();
+                        }),
                     Divider(
                       thickness: 1.0,
                       color: Colors.white,
                     ),
-                    SizedBox(height: 10,),
+                    SizedBox(
+                      height: 10,
+                    ),
 
-                    Text('Rounds incompletos',
+                    Text(
+                      'Rounds incompletos',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 21,
-                          fontWeight: FontWeight.bold
-                        ),
+                          fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(height: 20,),
-                    
-                     Column(
-                        children: [
-                          // Primer contadors
-                          _.count2 >= 1 ?
-                            Container(
+                    SizedBox(
+                      height: 20,
+                    ),
+
+                    Column(
+                      children: [
+                        // Primer contadors
+                        _.count2 >= 1
+                            ? Container(
                                 padding: EdgeInsets.only(bottom: 15),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     CounterColumn(
                                       title: 'Repeticiones',
                                       counter: _.incounter1,
-                                      onAdd: (){
+                                      onAdd: () {
                                         _.onAddinCounter1();
                                       },
-                                      onRemove: (){
+                                      onRemove: () {
                                         _.onRemoveinCounter1();
                                       },
                                     ),
-
-
                                     CounterKg(
                                       title: 'Kg',
                                       counter: _.inkg1,
-                                      onAdd: (){
+                                      onAdd: () {
                                         _.onAddinkg1();
                                       },
-                                      onRemove: (){
+                                      onRemove: () {
                                         _.onRemoveinkg1();
                                       },
                                     ),
                                   ],
                                 ),
                               )
-                          :
-                            Container(),
-                          // segundo contadors
-                          _.count2 >= 2 ?
-                            Container(
+                            : Container(),
+                        // segundo contadors
+                        _.count2 >= 2
+                            ? Container(
                                 padding: EdgeInsets.only(bottom: 15),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     CounterColumn(
                                       title: 'Repeticiones',
                                       counter: _.incounter2,
-                                      onAdd: (){
+                                      onAdd: () {
                                         _.onAddinCounter2();
                                       },
-                                      onRemove: (){
+                                      onRemove: () {
                                         _.onRemoveinCounter2();
                                       },
                                     ),
                                     CounterKg(
                                       title: 'Kg',
                                       counter: _.inkg2,
-                                      onAdd: (){
+                                      onAdd: () {
                                         _.onAddinkg2();
                                       },
-                                      onRemove: (){
+                                      onRemove: () {
                                         _.onRemoveinkg2();
                                       },
                                     ),
                                   ],
                                 ),
                               )
-                          :
-                            Container(
-                              
-                            ),
-                          // tercer contadors
-                          _.count2 >= 3 ?
-                            Container(
+                            : Container(),
+                        // tercer contadors
+                        _.count2 >= 3
+                            ? Container(
                                 padding: EdgeInsets.only(bottom: 15),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     CounterColumn(
                                       title: 'Repeticiones',
                                       counter: _.incounter3,
-                                      onAdd: (){
+                                      onAdd: () {
                                         _.onAddinCounter3();
                                       },
-                                      onRemove: (){
+                                      onRemove: () {
                                         _.onRemoveinCounter3();
                                       },
                                     ),
                                     CounterKg(
                                       title: 'Kg',
                                       counter: _.inkg3,
-                                      onAdd: (){
+                                      onAdd: () {
                                         _.onAddinkg3();
                                       },
-                                      onRemove: (){
+                                      onRemove: () {
                                         _.onRemoveinkg3();
                                       },
                                     ),
                                   ],
                                 ),
                               )
-                          :
-                            Container(),
-                          // Cuarto contadors
-                          _.count2 >= 4 ?
-                            Container(
+                            : Container(),
+                        // Cuarto contadors
+                        _.count2 >= 4
+                            ? Container(
                                 padding: EdgeInsets.only(bottom: 15),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     CounterColumn(
                                       title: 'Repeticiones',
                                       counter: _.incounter4,
-                                      onAdd: (){
+                                      onAdd: () {
                                         _.onAddinCounter4();
                                       },
-                                      onRemove: (){
+                                      onRemove: () {
                                         _.onRemoveinCounter4();
                                       },
                                     ),
                                     CounterKg(
                                       title: 'Kg',
                                       counter: _.inkg4,
-                                      onAdd: (){
+                                      onAdd: () {
                                         _.onAddinkg4();
                                       },
-                                      onRemove: (){
+                                      onRemove: () {
                                         _.onRemoveinkg4();
                                       },
                                     ),
                                   ],
                                 ),
                               )
-                          :
-                            Container(
-                              
-                            ),
-                          // Quinto contadors
-                          _.count2 >= 5 ?
-                            Container(
+                            : Container(),
+                        // Quinto contadors
+                        _.count2 >= 5
+                            ? Container(
                                 padding: EdgeInsets.only(bottom: 15),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     CounterColumn(
                                       title: 'Repeticiones',
                                       counter: _.incounter5,
-                                      onAdd: (){
+                                      onAdd: () {
                                         _.onAddinCounter5();
                                       },
-                                      onRemove: (){
+                                      onRemove: () {
                                         _.onRemoveinCounter5();
                                       },
                                     ),
                                     CounterKg(
                                       title: 'Kg',
                                       counter: _.inkg5,
-                                      onAdd: (){
+                                      onAdd: () {
                                         _.onAddinkg5();
                                       },
-                                      onRemove: (){
+                                      onRemove: () {
                                         _.onRemoveinkg5();
                                       },
                                     ),
                                   ],
                                 ),
                               )
-                          :
-                            Container(),
-                          // Sexto contadors
-                          _.count2 >= 6 ?
-                            Container(
+                            : Container(),
+                        // Sexto contadors
+                        _.count2 >= 6
+                            ? Container(
                                 padding: EdgeInsets.only(bottom: 15),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     CounterColumn(
                                       title: 'Repeticiones',
                                       counter: _.incounter6,
-                                      onAdd: (){
+                                      onAdd: () {
                                         _.onAddinCounter6();
                                       },
-                                      onRemove: (){
+                                      onRemove: () {
                                         _.onRemoveinCounter6();
                                       },
                                     ),
                                     CounterKg(
                                       title: 'Kg',
                                       counter: _.inkg6,
-                                      onAdd: (){
+                                      onAdd: () {
                                         _.onAddinkg6();
                                       },
-                                      onRemove: (){
+                                      onRemove: () {
                                         _.onRemoveinkg6();
                                       },
                                     ),
                                   ],
                                 ),
                               )
-                          :
-                            Container(),
-                          // Septimo contadors
-                          _.count2 >= 7 ?
-                            Container(
+                            : Container(),
+                        // Septimo contadors
+                        _.count2 >= 7
+                            ? Container(
                                 padding: EdgeInsets.only(bottom: 15),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     CounterColumn(
                                       title: 'Repeticiones',
                                       counter: _.incounter7,
-                                      onAdd: (){
+                                      onAdd: () {
                                         _.onAddinCounter7();
                                       },
-                                      onRemove: (){
+                                      onRemove: () {
                                         _.onRemoveinCounter7();
                                       },
                                     ),
                                     CounterKg(
                                       title: 'Kg',
                                       counter: _.inkg7,
-                                      onAdd: (){
+                                      onAdd: () {
                                         _.onAddinkg7();
                                       },
-                                      onRemove: (){
+                                      onRemove: () {
                                         _.onRemoveinkg7();
                                       },
                                     ),
                                   ],
                                 ),
                               )
-                          :
-                            Container(),
-                          // Octavo contadors
-                          _.count2 >= 8 ?
-                            Container(
+                            : Container(),
+                        // Octavo contadors
+                        _.count2 >= 8
+                            ? Container(
                                 padding: EdgeInsets.only(bottom: 15),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     CounterColumn(
                                       title: 'Repeticiones',
                                       counter: _.incounter8,
-                                      onAdd: (){
+                                      onAdd: () {
                                         _.onAddinCounter8();
                                       },
-                                      onRemove: (){
+                                      onRemove: () {
                                         _.onRemoveinCounter8();
                                       },
                                     ),
                                     CounterKg(
                                       title: 'Kg',
                                       counter: _.inkg8,
-                                      onAdd: (){
+                                      onAdd: () {
                                         _.onAddinkg8();
                                       },
-                                      onRemove: (){
+                                      onRemove: () {
                                         _.onRemoveinkg8();
                                       },
                                     ),
                                   ],
                                 ),
                               )
-                          :
-                            Container(
-                              
-                            ),
-                          // Noveno contadors
-                          _.count2 >= 9 ?
-                            Container(
+                            : Container(),
+                        // Noveno contadors
+                        _.count2 >= 9
+                            ? Container(
                                 padding: EdgeInsets.only(bottom: 15),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     CounterColumn(
                                       title: 'Repeticiones',
                                       counter: _.incounter9,
-                                      onAdd: (){
+                                      onAdd: () {
                                         _.onAddinCounter9();
                                       },
-                                      onRemove: (){
+                                      onRemove: () {
                                         _.onRemoveinCounter9();
                                       },
                                     ),
                                     CounterKg(
                                       title: 'Kg',
                                       counter: _.inkg9,
-                                      onAdd: (){
+                                      onAdd: () {
                                         _.onAddinkg9();
                                       },
-                                      onRemove: (){
+                                      onRemove: () {
                                         _.onRemoveinkg9();
                                       },
                                     ),
                                   ],
                                 ),
                               )
-                          :
-                            Container(
-                              
-                            ),
-                          // Decimo contadors
-                          _.count2 >= 10 ?
-                            Container(
+                            : Container(),
+                        // Decimo contadors
+                        _.count2 >= 10
+                            ? Container(
                                 padding: EdgeInsets.only(bottom: 15),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     CounterColumn(
                                       title: 'Repeticiones',
                                       counter: _.incounter10,
-                                      onAdd: (){
+                                      onAdd: () {
                                         _.onAddinCounter10();
                                       },
-                                      onRemove: (){
+                                      onRemove: () {
                                         _.onRemoveinCounter10();
                                       },
                                     ),
                                     CounterKg(
                                       title: 'Kg',
                                       counter: _.inkg10,
-                                      onAdd: (){
+                                      onAdd: () {
                                         _.onAddinkg10();
                                       },
-                                      onRemove: (){
+                                      onRemove: () {
                                         _.onRemoveinkg10();
                                       },
                                     ),
                                   ],
                                 ),
                               )
-                          :
-                            Container(
-                              
-                            ),
-                        
-                        ],
-                      ),
+                            : Container(),
+                      ],
+                    ),
 
                     ButtonPrimary(
-                      height: 40,
-                      width: 100,
-                      text: 'Agregar', 
-                      onPressed: (){
-                        _.updateList2();
-                      }),
+                        height: 40,
+                        width: 100,
+                        text: 'Agregar',
+                        onPressed: () {
+                          _.updateList2();
+                        }),
 
-                    TextInput(
-                      hintText: 'Comentarios', 
-                      maxLines: 4,
-                      inputType: TextInputType.multiline, 
-                      controller: null
+                    SizedBox(
+                      height: 20,
                     ),
-                    SizedBox(height: 20,),
                     ButtonPrimary(
-                      height: 40,
-                      text: 'Confirmar',
-                      onPressed: (){
-                        _.calculateIterations();
-                      }
+                        height: 40,
+                        text: 'Confirmar',
+                        onPressed: () {
+                          _.calculateIterations(
+                            typeIned: widget.typeInde,
+                            hits: widget.hits,
+                            sessionName: widget.sessionName,
+                          );
+                        }),
+                    SizedBox(
+                      height: 20,
                     ),
-                    SizedBox(height: 20,),
                   ],
                 ),
+              ),
             ),
-          ),
-        );
-      }
-    );
-  
-  
+          );
+        });
   }
 }

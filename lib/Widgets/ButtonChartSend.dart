@@ -7,8 +7,9 @@ class ButtonSendData extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
-        Get.to(DataPage(),
+      onTap: () {
+        Get.to(
+          DataPage(),
           transition: Transition.size,
           duration: Duration(milliseconds: 800),
         );
@@ -17,33 +18,34 @@ class ButtonSendData extends StatelessWidget {
         height: 50,
         padding: EdgeInsets.symmetric(horizontal: 10),
         decoration: BoxDecoration(
-          color: redPrimary,
-          borderRadius: BorderRadius.circular(10),
-          boxShadow: <BoxShadow>[
+            color: redPrimary,
+            borderRadius: BorderRadius.circular(10),
+            boxShadow: <BoxShadow>[
               BoxShadow(
                   color: Colors.black45,
                   blurRadius: 15.0,
-                  offset: Offset(0.0, 7.0)
-              )
-            ]
-        ),
+                  offset: Offset(0.0, 7.0))
+            ]),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-              child: Text('Ver Graficos',
+              child: Text(
+                'Mi progreso',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     color: Colors.white,
                     fontSize: 21,
-                    fontWeight: FontWeight.bold
-                  ),
+                    fontWeight: FontWeight.bold),
               ),
             ),
             Container(
-              child: Icon(Icons.show_chart, size: 35, color: Colors.white,)
-            ),
+                child: Icon(
+              Icons.show_chart,
+              size: 35,
+              color: Colors.white,
+            )),
           ],
         ),
       ),

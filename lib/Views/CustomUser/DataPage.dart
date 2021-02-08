@@ -14,7 +14,7 @@ class DataPage extends StatefulWidget {
 }
 
 class _DataPageState extends State<DataPage> {
-  
+  var user = Get.find<HomeControllers>();
 
   @override
   Widget build(BuildContext context) {
@@ -39,14 +39,14 @@ class _DataPageState extends State<DataPage> {
                     RotatedBox(
                         quarterTurns: 3,
                         child: ButtonSelector(
-                            iconD: Icons.person,
-                            colorB: widget.selectOne ? redPrimary : blackPrimary,
-                            onCall: (){
-                              setState(() {
-                                widget.selectOne = true;
-                              });
-                            },  
-                          )),
+                          iconD: Icons.person,
+                          colorB: widget.selectOne ? redPrimary : blackPrimary,
+                          onCall: () {
+                            setState(() {
+                              widget.selectOne = true;
+                            });
+                          },
+                        )),
                     SizedBox(
                       width: 10,
                     ),
@@ -55,10 +55,10 @@ class _DataPageState extends State<DataPage> {
                         child: ButtonSelector(
                           iconD: Icons.people,
                           colorB: widget.selectOne ? blackPrimary : redPrimary,
-                          onCall: (){
+                          onCall: () {
                             setState(() {
-                                widget.selectOne = false;
-                              });
+                              widget.selectOne = false;
+                            });
                           },
                         )),
                     SizedBox(
@@ -69,36 +69,32 @@ class _DataPageState extends State<DataPage> {
                         child: ButtonSelector(
                           iconD: Icons.add,
                           colorB: redPrimary,
-                          onCall: (){
-                              Get.to(AddResult(),
+                          onCall: () {
+                            Get.to(AddResult(hits: 2, sessionName: 'CF43'),
                                 transition: Transition.downToUp,
                                 curve: Interval(0.65, 1.0),
-                                duration: Duration(milliseconds: 900)
-                              );
+                                duration: Duration(milliseconds: 900));
                           },
                         ))
                   ],
                 ),
               ),
-
-              widget.selectOne?
-
-                RotatedBox(
-                    quarterTurns: 3,
-                    child: ChartData(
-                      titleChar: 'IRG',
-                      titleChar2: 'IRK',
-                      titleChar3: 'IRR',
-                    ))
-              :
-                RotatedBox(
-                    quarterTurns: 3,
-                    child: ChartDataGroup(
-                      titleChar: 'IRG',
-                      titleChar2: 'IRK',
-                      titleChar3: 'IRR',
-                    ))
-
+              widget.selectOne
+                  ? RotatedBox(
+                      quarterTurns: 3,
+                      child: ChartData(
+                        titleChar: 'IRG',
+                        titleChar2: 'IRK',
+                        titleChar3: 'IRR',
+                        user: user.usere,
+                      ))
+                  : RotatedBox(
+                      quarterTurns: 3,
+                      child: ChartDataGroup(
+                        titleChar: 'IRG',
+                        titleChar2: 'IRK',
+                        titleChar3: 'IRR',
+                      ))
             ],
           ),
         ),

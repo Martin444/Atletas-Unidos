@@ -1,7 +1,9 @@
 import 'package:atletasunidos/Controllers/Homecontroller.dart';
 import 'package:atletasunidos/Widgets/ButtonIRB.dart';
 import 'package:atletasunidos/Widgets/const.dart';
+import 'package:atletasunidos/model/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,11 +12,17 @@ class ChartData extends StatefulWidget {
   String titleChar;
   String titleChar2;
   String titleChar3;
+  Users user;
 
   int selecIRB = 1;
   int boton;
 
-  ChartData({this.titleChar, this.titleChar2, this.titleChar3});
+  ChartData({
+    this.titleChar,
+    this.titleChar2,
+    this.titleChar3,
+    @required this.user,
+  });
 
   @override
   _ChartDataState createState() => _ChartDataState();
@@ -28,9 +36,41 @@ class _ChartDataState extends State<ChartData> {
 
   @override
   Widget build(BuildContext context) {
+    return StreamBuilder(
+        stream: FirebaseFirestore.instance
+            .collection('tabulate')
+            .where('userID', isEqualTo: widget.user.uid)
+            .snapshots(),
+        builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (snapshot.hasData) {
+            double _limitY = 0.0;
+            List<FlSpot> spots = [];
+            List<String> listSession = [];
+            List<double> _listIRG = [];
+            List<int> _countdoc = [];
 
+            for (int count = 0; count <= snapshot.data.docs.length; count++) {
+              _countdoc.add(count);
+            }
 
-   
+            snapshot.data.docs.forEach((element) {
+              _listIRG.add(element.data()['IRRG']);
+              listSession.add(element.data()['sesionName']);
+            });
+
+            // Recibimos el numero mayor
+            for (int x = 1; x < _listIRG.length; x++) {
+              if (_listIRG[x] > _limitY) {
+                _limitY = _listIRG[x];
+              }
+            }
+
+            for (int f = 0; f < snapshot.data.docs.length; f++) {
+              // print(_countdoc.length),
+              // print(_listIRG.length),
+              spots.add(FlSpot(_countdoc[f].toDouble(), _listIRG[f]));
+            }
+
             return Container(
               width: Get.height / 1.3,
               padding: EdgeInsets.only(right: 20, left: 20),
@@ -101,21 +141,33 @@ class _ChartDataState extends State<ChartData> {
                       left: 30.0,
                     ),
                     child: LineChart(
-                      sampleData1(),
+                      sampleData1(
+                          spots: spots,
+                          listSession: listSession,
+                          limitY: _limitY),
                       swapAnimationDuration: const Duration(milliseconds: 250),
                     ),
                   ),
                 ],
               ),
             );
-         
-        
-  
+          } else {
+            return Container(
+              width: Get.height / 1.3,
+              child: Center(
+                child: CircularProgressIndicator(),
+              ),
+            );
+          }
+        });
   }
 }
 
-LineChartData sampleData1() {
-var compareID = Get.find<HomeControllers>();
+LineChartData sampleData1({
+  @required List<FlSpot> spots,
+  @required List<String> listSession,
+  @required double limitY,
+}) {
   return LineChartData(
     lineTouchData: LineTouchData(
       touchTooltipData: LineTouchTooltipData(
@@ -130,7 +182,7 @@ var compareID = Get.find<HomeControllers>();
     ),
     titlesData: FlTitlesData(
       bottomTitles: SideTitles(
-        interval: 2,
+        interval: 1,
         showTitles: true,
         reservedSize: -5,
         getTextStyles: (value) => const TextStyle(
@@ -144,13 +196,16 @@ var compareID = Get.find<HomeControllers>();
 
           var compare = number % 2;
 
-          switch (compare) {
-            case 0:
-              return compareID.listSession[value.toInt()];
-              break;
-            default:
-          }
-          return 'h';
+          print(listSession);
+
+          // switch (compare) {
+          //   case 0:
+          //     break;
+          //   default:
+          // }
+          return listSession[value.toInt()];
+
+          // return 'h';
         },
       ),
       leftTitles: SideTitles(
@@ -198,19 +253,18 @@ var compareID = Get.find<HomeControllers>();
       ),
     ),
     minX: 0,
-    maxX: compareID.countnum.toDouble(),
-    maxY: compareID.limity + 10,
+    maxX: listSession.length.toDouble() - 1,
+    maxY: limitY + 1,
     minY: 0,
-    lineBarsData: linesBarData1(),
+    lineBarsData: linesBarData1(spots: spots),
   );
 }
 
-List<LineChartBarData> linesBarData1() {
-   var compareID = Get.find<HomeControllers>();
-   print(compareID.spots.length);
-   print('hola');
+List<LineChartBarData> linesBarData1({
+  @required List<FlSpot> spots,
+}) {
   final LineChartBarData lineChartBarData1 = LineChartBarData(
-    spots: compareID.spots,
+    spots: spots,
     isCurved: true,
     colors: [
       const Color(0xff4af699),
@@ -223,7 +277,7 @@ List<LineChartBarData> linesBarData1() {
     ],
     isStrokeCapRound: true,
     dotData: FlDotData(
-      show: false,
+      show: true,
     ),
     belowBarData: BarAreaData(
       show: false,

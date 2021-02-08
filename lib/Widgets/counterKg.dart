@@ -16,90 +16,88 @@ class CounterKg extends StatefulWidget {
 }
 
 class _CounterKgState extends State<CounterKg> {
-
   @override
   Widget build(BuildContext context) {
     return GetBuilder<HomeControllers>(
-      init: HomeControllers(),
-      builder: (_) {
-        return Container(
-          margin: EdgeInsets.symmetric(vertical: 10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                child: Text(
-                  widget.title,
-                  style: TextStyle(
-                      fontSize: 19.0,
-                      fontFamily: "Lato",
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold),
+        init: HomeControllers(),
+        builder: (_) {
+          return Container(
+            margin: EdgeInsets.symmetric(vertical: 10),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  child: Text(
+                    widget.title,
+                    style: TextStyle(
+                        fontSize: 19.0,
+                        fontFamily: "Lato",
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold),
+                  ),
                 ),
-              ),
-              Container(
-                margin: EdgeInsets.only(top: 10),
-                child: Row(
-                  children: [
-                    //Remove button
-                    GestureDetector(
-                      onTap: widget.onRemove,
-                      onLongPress: widget.onRemove,
-                      child: Container(
+                Container(
+                  margin: EdgeInsets.only(top: 10),
+                  child: Row(
+                    children: [
+                      //Remove button
+                      GestureDetector(
+                        onTap: widget.onRemove,
+                        onLongPress: widget.onRemove,
+                        child: Container(
+                          height: 40,
+                          width: 40,
+                          padding: EdgeInsets.symmetric(vertical: 5),
+                          decoration: BoxDecoration(
+                              color: redPrimary,
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Center(
+                            child: Image.asset('assets/Minus.png'),
+                          ),
+                        ),
+                      ),
+                      //Counter text
+                      Container(
                         height: 40,
                         width: 40,
                         padding: EdgeInsets.symmetric(vertical: 5),
                         decoration: BoxDecoration(
-                            color: redPrimary,
+                            // color]: redPrimary,
                             borderRadius: BorderRadius.circular(10)),
                         child: Center(
-                          child: Image.asset('assets/Minus.png'),
+                          child: Text(
+                            '${widget.counter}',
+                            style: TextStyle(
+                                fontSize: 19.0,
+                                fontFamily: "Lato",
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+                          ),
                         ),
                       ),
-                    ),
-                    //Counter text
-                    Container(
-                      height: 40,
-                      width: 40,
-                      padding: EdgeInsets.symmetric(vertical: 5),
-                      decoration: BoxDecoration(
-                          // color]: redPrimary,
-                          borderRadius: BorderRadius.circular(10)),
-                      child: Center(
-                        child: Text(
-                          '${widget.counter}',
-                          style: TextStyle(
-                              fontSize: 19.0,
-                              fontFamily: "Lato",
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold),
+                      // Add button
+                      GestureDetector(
+                        onTap: widget.onAdd,
+                        onLongPress: widget.onAdd,
+                        child: Container(
+                          height: 40,
+                          width: 40,
+                          padding: EdgeInsets.symmetric(vertical: 5),
+                          decoration: BoxDecoration(
+                              color: redPrimary,
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Center(
+                            child: Image.asset('assets/Plus.png'),
+                          ),
                         ),
                       ),
-                    ),
-                    // Add button
-                    GestureDetector(
-                      onTap: widget.onAdd,
-                      onLongPress: widget.onAdd,
-                      child: Container(
-                        height: 40,
-                        width: 40,
-                        padding: EdgeInsets.symmetric(vertical: 5),
-                        decoration: BoxDecoration(
-                            color: redPrimary,
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Center(
-                          child: Image.asset('assets/Plus.png'),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              )
-            ],
-          ),
-        );
-      }
-    );
+                    ],
+                  ),
+                )
+              ],
+            ),
+          );
+        });
   }
 }

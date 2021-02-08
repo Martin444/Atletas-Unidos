@@ -11,30 +11,40 @@ class _PublicListState extends State<PublicList> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-      stream: FirebaseFirestore.instance.collection('publics').snapshots(),
-      builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        stream: FirebaseFirestore.instance.collection('publics').snapshots(),
+        builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (snapshot.hasData) {
+            List<PublicCard> cards = new List();
+            snapshot.data.docs.forEach((element) {
+              var publicID = element.id;
+              var nameUser = element['userName'];
+              var content = element['textconten'];
+              var contenPot = element['photoConten'];
+              var photo = element['userPhoto'];
+              var likes = element['likes'];
 
-        if(snapshot.hasData){
-          List<PublicCard> cards = new List();
-          snapshot.data.docs.forEach((element) {
-            var publicID = element.id;
-            var nameUser = element['userName'];
-            var content = element['textconten'];
-            var contenPot = element['photoConten'];
-            var photo = element['userPhoto'];
-            var likes = element['likes'];
+              cards.add(PublicCard(
+                name: nameUser,
+                conten: content,
+                photoUrl: photo,
+                likes: likes,
+                photoPot: contenPot,
+                publicID: publicID,
+              ));
+            });
 
-
-            cards.add(PublicCard(name: nameUser, conten: content, photoUrl: photo, likes: likes, photoPot: contenPot, publicID: publicID,));
-          });
-
-          return Container(
-            child: Column(
-              children: cards,
-            ),
-          );
-        }
-      }
-    );
+            return Container(
+              child: Column(
+                children: cards,
+              ),
+            );
+          } else {
+            return Container(
+              child: Center(
+                child: CircularProgressIndicator(),
+              ),
+            );
+          }
+        });
   }
 }
